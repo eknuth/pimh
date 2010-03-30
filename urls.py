@@ -8,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
                        # Example:
-                           #	(r'', views.district),
+                       (r'^$', views.browse_neighborhoods),
                        (r'^neighborhood$', views.get_neighborhood),
                        (r'^neighborhood/(?P<neighborhood_slug>[-\w]+)', views.map_neighborhood), 
                        

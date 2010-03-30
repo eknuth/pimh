@@ -6,10 +6,13 @@
   // Call this function when the page has been loaded
   function initialize() {
     var map = new google.maps.Map2(document.getElementById("map"));
-    map.setCenter(new google.maps.LatLng({{ n.poly.centroid.y }}, {{ n.poly.centroid.x }}), 13);
-    var polygon = new GPolygon({{ n.gpoly.points }}, "#f33f00", 5, 1, "#ff0000", 0.2);
-    map.addOverlay(polygon);
+    map.setUIToDefault();
 
+    map.setCenter(new google.maps.LatLng({{ centroid.y }}, {{ centroid.x }}), 13);
+    {% for this_n in n %}
+       var polygon = new GPolygon({{ this_n.gpoly.points }}, "#f33f00", 5, 1, "#ff0000", 0.2);
+       map.addOverlay(polygon);
+    {% endfor %}
 
   }
   google.setOnLoadCallback(initialize);
