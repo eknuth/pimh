@@ -4,12 +4,14 @@ from django.contrib.gis.maps.google.overlays import GPolygon
 
 class Neighborhood(models.Model):
     name = models.CharField(max_length=50)
+    quad = models.CharField(max_length=2)
     slug = models.CharField(max_length=50)
     poly = models.PolygonField(srid=4326) 
     objects = models.GeoManager()
 
     def gpoly(self):
-        return GPolygon(self.poly)
+        gpoly = GPolygon(self.poly)
+        return gpoly.points.replace('GLatLng', 'google.maps.LatLng')
 
     def _get_slug(self):
         return slugify( self.name )
