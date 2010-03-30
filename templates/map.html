@@ -8,9 +8,9 @@
     var map = new google.maps.Map2(document.getElementById("map"));
     map.setUIToDefault();
 
-    map.setCenter(new google.maps.LatLng({{ centroid.y }}, {{ centroid.x }}), 13);
+    map.setCenter(new google.maps.LatLng({{ centroid.y }}, {{ centroid.x }}), {{ zoom }});
     {% for this_n in n %}
-       var polygon = new GPolygon({{ this_n.gpoly.points }}, "#f33f00", 5, 1, "#ff0000", 0.2);
+       var polygon = new GPolygon({{ this_n.gpoly.points }}, "#f33f00", 2, 1, "#ff0000", 0.1);
        map.addOverlay(polygon);
     {% endfor %}
 
@@ -29,11 +29,11 @@
     }
 </style>
 {% endblock %}
-{% block title %}Portland is my Homeland: {{ n.name }}{% endblock %}
+{% block title %}Portland is my Homeland: {{ title }}{% endblock %}
 
 {% block content %}
 
-    {{ n.name }}
+    {{ title }}
 
     <div id=map></div>
 

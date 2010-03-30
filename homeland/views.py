@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from geopy import geocoders 
 from django.contrib.gis.geos import Point, Polygon, MultiPolygon
-
+from django.contrib.gis.maps.google import GoogleZoom
 from models import Neighborhood
 from forms import AddressForm
 
@@ -35,9 +35,13 @@ def dissolve_neighborhoods(all_n):
 
 def browse_neighborhoods(request):
     all_n = Neighborhood.objects.all()
+    gz = GoogleZoom()
     return render_to_response('map.html', {
             'n': all_n,
+            'centroid': all_n.unionagg().centroid, 
             'key': api_key,
+            'title': 'All Neighborhoods',
+            'zoom': gz.get_zoom(all_n.unionagg())
             })
 
 def get_neighborhood(request):
@@ -56,9 +60,11 @@ def get_neighborhood(request):
 def map_neighborhood(request, neighborhood_slug):
     n = Neighborhood.objects.get(slug=neighborhood_slug)
     surrounding_n = Neighborhood.objects.filter(poly__intersects=n.poly)
-    dissolved_n = dissolve_neighborhoods(surrounding_n)
+    gz = GoogleZoom()
     return render_to_response('map.html', {
-            'n': n, surrounding_n,
-            'centroid': dissolved_n.centroid, 
+            'n': surrounding_n,
+            'centroid': surrounding_n.unionagg().centroid, 
             'key': api_key,
+            'title': n.name,
+            'zoom': gz.get_zoom(surrounding_n.unionagg())
             })
