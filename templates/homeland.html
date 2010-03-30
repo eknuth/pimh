@@ -4,12 +4,14 @@
 
 {% block content %}
 
-<form name="input" method="get">
-Enter an Address:
-<input type="text" name="address" />
+<form method="post">
+{{ form.as_p }}
 <input type="submit" value="Submit" />
 </form>
 
+{% if neighborhood %}
+    {{ neighborhood.name }}
+{% endif %}
 {% endblock %}
 
 

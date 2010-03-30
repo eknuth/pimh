@@ -2,11 +2,17 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <link rel="stylesheet" href="style.css" />
+<script type="text/javascript" src="http://www.google.com/jsapi?key={{ key }}"></script>
+<script type="text/javascript">
+   google.load("jquery", "1.4.1");
+</script>
+
     <title>{% block title %}My amazing site{% endblock %}</title>
+    {% block head %}{% endblock %}
 </head>
 
 <body>
+  {% block body %}{% endblock %}
     <div id="sidebar">
         {% block sidebar %}
         <ul>
