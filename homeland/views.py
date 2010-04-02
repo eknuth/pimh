@@ -4,7 +4,8 @@ from geopy import geocoders
 from django.contrib.gis.geos import Point, Polygon, MultiPolygon
 from django.contrib.gis.maps.google import GoogleZoom
 from models import Neighborhood
-from forms import AddressForm
+from forms import AddressForm, SearchForm
+import simplejson
 
 api_key='ABQIAAAAkUlmIW1X-La8Y_JDbMsIaBQdkgRPlMVKT1vD1nTRJCRPuPWGKxT4RPVCd15nQW5msLk-f0ljd7C1Eg'
 
@@ -43,6 +44,22 @@ def browse_neighborhoods(request):
             'title': 'All Neighborhoods',
             'zoom': gz.get_zoom(all_n.unionagg())
             })
+
+def search(request):
+    if request.GET.get('coords', ''):
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            (lat,lon) = form.cleaned_data['coords'].split(',')
+            n = get_neighborhood_by_point(Point(float(lat),float(lon)))
+            search_response = {'name': n.name, 'poly': n.gpoly()}
+            return HttpResponse(simplejson.dumps(search_respons),
+                                    mimetype='application/json')
+
+    else:
+        form = SearchForm()
+        return render_to_response('search.html', {
+                'form': form,
+                })
 
 def get_neighborhood(request):
     if request.method == 'POST': # If the form has been submitted...

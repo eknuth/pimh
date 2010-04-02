@@ -10,6 +10,7 @@ urlpatterns = patterns('',
                        # Example:
                        (r'^$', views.browse_neighborhoods),
                        (r'^neighborhood$', views.get_neighborhood),
+                       (r'^search$', views.search),
                        (r'^neighborhood/(?P<neighborhood_slug>[-\w]+)', views.map_neighborhood), 
                        
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
