@@ -52,7 +52,7 @@ def search(request):
             (lat,lon) = form.cleaned_data['coords'].split(',')
             n = get_neighborhood_by_point(Point(float(lat),float(lon)))
             search_response = {'name': n.name, 'poly': n.gpoly()}
-            return HttpResponse(simplejson.dumps(search_respons),
+            return HttpResponse(simplejson.dumps(search_response),
                                     mimetype='application/json')
 
     else:

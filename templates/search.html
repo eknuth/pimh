@@ -3,19 +3,21 @@
 {% block title %}Portland is my Homeland{% endblock %}
 {% block head %}
 <script>
-$.getJSON('/search?coords=-122.6244877672641%2C45.526271333559713', function(data) {
-  $('#result').html('<p>Name ' + data.name + ' </p>');
-});
+  if (navigator.geolocation) {  
+       navigator.geolocation.getCurrentPosition(function(position) {  
+ 
+           $.getJSON('/search?coords=' + position.coords.longitude + '%2C' + position.coords.latitude, 
+              function(data) {
+                    $('#result').html('<p>Name ' + data.name + ' </p>');
+            });
+       });
+   }
+
 </script>
 {% endblock %}
 
 
 {% block content %}
-
-<form method="GET">
-{{ form.as_p }}
-<input type="submit" value="Submit" />
-</form>
 <div id="result"></div>
 {% if neighborhood %}
     {{ neighborhood.name }}
