@@ -1,4 +1,4 @@
-**NW
+--NW
 *[[Forest Park, Portland, Oregon|Forest Park]]
 *[[Hillside, Portland, Oregon|Hillside]]
 *[[Linnton, Portland, Oregon|Linnton]]
@@ -9,7 +9,7 @@
 *[[Pearl District, Portland, Oregon|Pearl District]]
 *[[East Columbia, Portland, Oregon|East Columbia]]
 
-**SW
+--SW
 *[[Sylvan-Highlands, Portland, Oregon|Sylvan-Highlands]]
 *[[Downtown, Portland, Oregon|Portland Downtown]]
 *[[Goose Hollow, Portland, Oregon|Goose Hollow]]
@@ -31,7 +31,7 @@
 *[[South Portland, Portland, Oregon|South Portland]] (includes Corbett, Fulton, Lair Hill, Terwilliger, and the Johns Landing and [[South Waterfront]] developments)
 *[[West Portland Park, Portland, Oregon|West Portland Park]] (includes Capitol Hill)
 
-**N
+--N
 *[[Arbor Lodge, Portland, Oregon|Arbor Lodge]]
 *[[Bridgeton, Portland, Oregon|Bridgeton]]
 *[[Cathedral Park, Portland, Oregon|Cathedral Park]]
@@ -43,7 +43,7 @@
 *[[St. Johns, Portland, Oregon|St. Johns]]
 *[[University Park, Portland, Oregon|University Park]]
 
-**NE
+--NE
 *[[Alameda, Portland, Oregon|Alameda]]
 *[[Boise, Portland, Oregon|Boise]]
 *[[Concordia, Portland, Oregon|Concordia]]
@@ -75,7 +75,7 @@
 *[[Hazelwood, Portland, Oregon|Hazelwood]]
 *[[Lloyd District, Portland, Oregon|Lloyd District]] (includes the Rose Quarter)
 
-**SE
+--SE
 *[[Centennial, Portland, Oregon|Centennial]]
 *[[Lents, Portland, Oregon|Lents]]
 *[[Mill Park, Portland, Oregon|Mill Park]]

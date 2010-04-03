@@ -6,6 +6,7 @@ class Neighborhood(models.Model):
     name = models.CharField(max_length=50)
     quad = models.CharField(max_length=2)
     slug = models.CharField(max_length=50)
+    wiki = models.CharField(max_length=100)
     poly = models.PolygonField(srid=4326) 
     objects = models.GeoManager()
 
