@@ -2,7 +2,24 @@
 
 {% block title %}Portland is my Homeland{% endblock %}
 {% block head %}
+<script type="text/javascript" src="http://www.google.com/jsapi?key={{ key }}"></script>
+<script type="text/javascript">
+   google.load("jquery", "1.4.1");
+</script>
+ <script src="/static/jqtouch/jqtouch.min.js" type="application/x-javascript" charset="utf-8"></script>
+ <style type="text/css" media="screen">@import "/static/jqtouch/jqtouch.min.css";</style>
+ <style type="text/css" media="screen">@import "/static/jqtouch/themes/theme.min.css";</style>
 <script>
+ $.jQTouch({
+        icon: 'jqtouch.png',
+        statusBar: 'black-translucent',
+        preloadImages: [
+            '/static/jqtouch/img/chevron_white.png',
+            '/static/jqtouch/img/bg_row_select.gif',
+            '/static/jqtouch/img/back_button_clicked.png',
+            '/static/jqtouch/img/button_clicked.png'
+            ]
+    });
   if (navigator.geolocation) {  
        navigator.geolocation.getCurrentPosition(function(position) {  
  
@@ -19,9 +36,7 @@
 
 {% block content %}
 <div id="result"></div>
-{% if neighborhood %}
-    {{ neighborhood.name }}
-{% endif %}
+Information?
 {% endblock %}
 
 

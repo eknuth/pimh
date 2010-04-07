@@ -4,9 +4,9 @@ from django.contrib.gis.maps.google.overlays import GPolygon
 
 class Neighborhood(models.Model):
     name = models.CharField(max_length=50)
-    quad = models.CharField(max_length=2)
+    quad = models.CharField(max_length=2, null=True)
     slug = models.CharField(max_length=50)
-    wiki = models.CharField(max_length=100)
+    wiki = models.CharField(max_length=100, null=True)
     poly = models.PolygonField(srid=4326) 
     objects = models.GeoManager()
 

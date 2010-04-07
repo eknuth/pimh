@@ -5,6 +5,7 @@ from os import path
 PROJECT_PATH = path.realpath(path.dirname(__file__))
 
 
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -37,6 +38,9 @@ SITE_ID = 1
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
+
+STATIC_DOC_ROOT = path.join(PROJECT_PATH, 'static')
+
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"

@@ -27,12 +27,30 @@ def get_neighborhood_by_address(address):
     place, (lat, lon) = g.geocode(address)
     return get_neighborhood_by_point(Point(lon,lat))
 
+
+
 def dissolve_neighborhoods(all_n):
     all_polygons = []
 
     for n in all_n:
         all_polygons.append(n.poly)
     return MultiPolygon(all_polygons)
+
+def mobile(request):
+    return render_to_response('mobile.html', {})
+
+
+def quad_neighborhoods(request, quad):
+    all_n = Neighborhood.objects.filter(quad=quad)
+    gz = GoogleZoom()
+    return render_to_response('map.html', {
+            'n': all_n,
+            'centroid': all_n.unionagg().centroid, 
+            'key': api_key,
+            'title': '%s Neighborhoods' % quad,
+            'zoom': gz.get_zoom(all_n.unionagg())
+            })
+
 
 def browse_neighborhoods(request):
     all_n = Neighborhood.objects.all()
@@ -51,7 +69,7 @@ def search(request):
         if form.is_valid():
             (lat,lon) = form.cleaned_data['coords'].split(',')
             n = get_neighborhood_by_point(Point(float(lat),float(lon)))
-            search_response = {'name': n.name, 'poly': n.gpoly()}
+            search_response = {'name': n.name.title(), 'poly': n.gpoly()}
             return HttpResponse(simplejson.dumps(search_response),
                                     mimetype='application/json')
 
