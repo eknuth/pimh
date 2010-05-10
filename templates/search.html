@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+1;2c{% extends "base.html" %}
 
 {% block title %}Portland is my Homeland{% endblock %}
 {% block head %}
@@ -23,7 +23,7 @@
   if (navigator.geolocation) {  
        navigator.geolocation.getCurrentPosition(function(position) {  
  
-           $.getJSON('/search?coords=' + position.coords.longitude + '%2C' + position.coords.latitude, 
+           $.getJSON('/lookup?coords=' + position.coords.longitude + '%2C' + position.coords.latitude, 
               function(data) {
                     $('#result').html('<p>Name ' + data.name + ' </p>');
             });

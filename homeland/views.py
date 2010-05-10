@@ -63,7 +63,7 @@ def browse_neighborhoods(request):
             'zoom': gz.get_zoom(all_n.unionagg())
             })
 
-def search(request):
+def lookup(request):
     if request.GET.get('coords', ''):
         form = SearchForm(request.GET)
         if form.is_valid():

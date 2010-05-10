@@ -8,12 +8,12 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
                        # Example:
-                       (r'^$', views.browse_neighborhoods),
-                       (r'^neighborhood$', views.get_neighborhood),
-                       (r'^search$', views.search),
-                       (r'^m$', views.mobile),
-                       (r'^neighborhood/quad/(?P<quad>[\w]+)', views.quad_neighborhoods), 
-                       (r'^neighborhood/(?P<neighborhood_slug>[-\w]+)', views.map_neighborhood), 
+#                       (r'^$', views.browse_neighborhoods),
+#                       (r'^neighborhood$', views.get_neighborhood),
+                       (r'^lookup$', views.lookup),
+                       (r'^$', views.mobile),
+#                       (r'^neighborhood/quad/(?P<quad>[\w]+)', views.quad_neighborhoods), 
+#                       (r'^neighborhood/(?P<neighborhood_slug>[-\w]+)', views.map_neighborhood), 
                        (r'^static/(?P<path>.*)$', 'django.views.static.serve',
                                  {'document_root': settings.STATIC_DOC_ROOT}),  
                      
@@ -22,5 +22,5 @@ urlpatterns = patterns('',
     #(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    (r'^admin/', include(admin.site.urls)),
+ #   (r'^admin/', include(admin.site.urls)),
 )

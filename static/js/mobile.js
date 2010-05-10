@@ -12,15 +12,15 @@ if (neighborhood == "unknown") {
     if (navigator.geolocation) {  
 	navigator.geolocation.getCurrentPosition(function(position) {  
 		
-		$.getJSON('/search?coords=' + position.coords.longitude + '%2C' + position.coords.latitude, 
+		$.getJSON('/lookup?coords=' + position.coords.longitude + '%2C' + position.coords.latitude, 
 			  function(data) {
 			      neighborhood = data.name;
-			      $('#results').html(data.name);
-			      $('#title_results').html('Neighborhood (' + data.name + ')');
+			      $('#results').html('You are in ' + data.name);
+			      $('#status').hide();
 			  });   
 	    });
     }
     else {
-	$('#title_results').html('Neighborhood (Location Unavailable)');
+	$('#results').html('Neighborhood (Location Unavailable)');
     }
 }
