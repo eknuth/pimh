@@ -40,15 +40,11 @@ def mobile(request):
     return render_to_response('mobile.html', {})
 
 
-def quad_neighborhoods(request, quad):
+def browse_by_quad(request, quad):
     all_n = Neighborhood.objects.filter(quad=quad)
-    gz = GoogleZoom()
-    return render_to_response('map.html', {
+    
+    return render_to_response('_browse.html', {
             'n': all_n,
-            'centroid': all_n.unionagg().centroid, 
-            'key': api_key,
-            'title': '%s Neighborhoods' % quad,
-            'zoom': gz.get_zoom(all_n.unionagg())
             })
 
 
@@ -69,7 +65,10 @@ def lookup(request):
         if form.is_valid():
             (lat,lon) = form.cleaned_data['coords'].split(',')
             n = get_neighborhood_by_point(Point(float(lat),float(lon)))
-            search_response = {'name': n.name.title(), 'poly': n.gpoly(), 'slug': n.slug}
+            search_response = {'name': n.name.title(), 'poly': n.gpoly(), 
+                               'slug': n.slug, 'wiki': n.wiki,
+                               'centroid_x': "%.5f" % n.poly.centroid.x,
+                               'centroid_y': "%.5f" % n.poly.centroid.y}
             return HttpResponse(simplejson.dumps(search_response),
                                     mimetype='application/json')
 
@@ -98,7 +97,7 @@ def map_neighborhood(request, neighborhood_slug):
     gz = GoogleZoom()
     return render_to_response('map.html', {
             'n': surrounding_n,
-            'centroid': surrounding_n.unionagg().centroid, 
+            'centroid_x': surrounding_n.unionagg().centroid, 
             'key': api_key,
             'title': n.name,
             'zoom': gz.get_zoom(surrounding_n.unionagg())

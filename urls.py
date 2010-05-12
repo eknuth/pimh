@@ -13,7 +13,7 @@ urlpatterns = patterns('',
                        (r'^lookup$', views.lookup),
                        (r'^$', views.mobile),
 
-#                       (r'^neighborhood/quad/(?P<quad>[\w]+)', views.quad_neighborhoods), 
+                       (r'^browse/(?P<quad>[\w]+)', views.browse_by_quad), 
                        (r'^neighborhood/(?P<neighborhood_slug>[-\w]+)', views.neighborhood), 
                        (r'^static/(?P<path>.*)$', 'django.views.static.serve',
                                  {'document_root': settings.STATIC_DOC_ROOT}),  

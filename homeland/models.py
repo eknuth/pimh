@@ -12,7 +12,8 @@ class Neighborhood(models.Model):
 
     def gpoly(self):
         gpoly = GPolygon(self.poly)
-        return gpoly.points.replace('GLatLng', 'google.maps.LatLng')
+#        return gpoly.points.replace('GLatLng', 'google.maps.LatLng')
+        return gpoly.points
 
     def _get_slug(self):
         return slugify( self.name )

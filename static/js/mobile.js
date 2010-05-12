@@ -12,22 +12,21 @@ $.jQTouch({
 	    });
 $(function(){
 	// Show a swipe event on swipe test
-	$('#swipeme').swipe(function(evt, data) {                
-		$(this).html('You swiped <strong>' + data.direction + '</strong>!');
-	    });
-	$('a[target="_blank"]').click(function() {
-		if (confirm('This link opens in a new window.')) {
-		    return true;
-		} else {
-		    $(this).removeClass('active');
-		    return false;
-		}
-	    });
-	// Page animation callback events
+
 	$('#home').
 	    bind('pageAnimationEnd', function(e, info){
-		    $('#neighborhood_link').attr('href', '/neighborhood/' + neighborhood_slug);
+		    $('#dneighborhood_link').attr('href', '/neighborhood/' + neighborhood.slug);
 		});
+	$('#map').
+	    bind('pageAnimationEnd', function(e, info){
+		    var map = new google.maps.Map2(document.getElementById("map_canvas"));
+		    map.setCenter(new google.maps.LatLng(neighborhood.centroid_y, 
+							 neighborhood.centroid_x), 13);
+		    var polygon = new GPolygon(	[neighborhood.poly,
+						"#f33f00", 5, 1, "#ff0000", 0.2);
+		    map.addOverlay(polygon);
+		});
+
 	
 	
     });
@@ -40,10 +39,13 @@ if (neighborhood == "unknown") {
 		
 		$.getJSON('/lookup?coords=' + position.coords.longitude + '%2C' + position.coords.latitude, 
 			  function(data) {
-			      neighborhood = data.name;
+			      neighborhood = data;
 			      neighborhood_slug = data.slug;
 			      $('#results').html('You are in ' + data.name);
-			      $('#neighborhood_link').attr('href', '/neighborhood/' + data.slug);
+			      $('dneighborhood_link').attr('href', '/neighborhood/' + data.slug);
+			      $('#wikilink').attr('href', data.wiki);
+			      $('#wikilink').text('Wikipedia Entry for ' + data.name);
+			      $('#neighborhood_link').text(data.name + ' Information');
 			      $('#status').hide();
 			  });   
 	    });
