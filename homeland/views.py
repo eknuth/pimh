@@ -105,4 +105,8 @@ def map_neighborhood(request, neighborhood_slug):
             })
 
 def neighborhood(request, neighborhood_slug):
-    return render_to_response('_neighborhood.html', {})
+    n = Neighborhood.objects.get(slug=neighborhood_slug)
+    return render_to_response('_neighborhood.html', {
+            'wiki': n.wiki,
+            'name': n.name.title()
+            })
