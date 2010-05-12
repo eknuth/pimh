@@ -19,6 +19,7 @@ if (neighborhood == "unknown") {
 			  function(data) {
 			      neighborhood = data.name;
 			      $('#results').html('You are in ' + data.name);
+			      $('a#neighborhood').attr('href', '/neighborhood/' + data.slug);
 			      $('#status').hide();
 			  });   
 	    });

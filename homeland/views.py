@@ -69,7 +69,7 @@ def lookup(request):
         if form.is_valid():
             (lat,lon) = form.cleaned_data['coords'].split(',')
             n = get_neighborhood_by_point(Point(float(lat),float(lon)))
-            search_response = {'name': n.name.title(), 'poly': n.gpoly()}
+            search_response = {'name': n.name.title(), 'poly': n.gpoly(), 'slug': n.slug}
             return HttpResponse(simplejson.dumps(search_response),
                                     mimetype='application/json')
 
@@ -103,3 +103,6 @@ def map_neighborhood(request, neighborhood_slug):
             'title': n.name,
             'zoom': gz.get_zoom(surrounding_n.unionagg())
             })
+
+def neighborhood(request, neighborhood_slug):
+    return render_to_response('_neighborhood.html', {})
