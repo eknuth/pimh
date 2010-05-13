@@ -65,7 +65,7 @@ def lookup(request):
         if form.is_valid():
             (lat,lon) = form.cleaned_data['coords'].split(',')
             n = get_neighborhood_by_point(Point(float(lat),float(lon)))
-            search_response = {'name': n.name.title(), 'poly': n.gpoly(), 
+            search_response = {'name': n.name.title(), 'polygon': n.gpoly(), 
                                'slug': n.slug, 'wiki': n.wiki,
                                'centroid_x': "%.5f" % n.poly.centroid.x,
                                'centroid_y': "%.5f" % n.poly.centroid.y}

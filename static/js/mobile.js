@@ -12,18 +12,22 @@ $.jQTouch({
 	    });
 $(function(){
 	// Show a swipe event on swipe test
-
+	/*
 	$('#home').
 	    bind('pageAnimationEnd', function(e, info){
-		    $('#dneighborhood_link').attr('href', '/neighborhood/' + neighborhood.slug);
-		});
+		    $('#neighborhood_link').attr('href', '/neighborhood/' + neighborhood.slug);
+		    }); */
 	$('#map').
 	    bind('pageAnimationEnd', function(e, info){
 		    var map = new google.maps.Map2(document.getElementById("map_canvas"));
 		    map.setCenter(new google.maps.LatLng(neighborhood.centroid_y, 
 							 neighborhood.centroid_x), 13);
-		    var polygon = new GPolygon(	[neighborhood.poly],
-						"#f33f00", 5, 1, "#ff0000", 0.2);
+		    
+		    coords=eval(neighborhood.polygon);
+		    
+		    var polygon = new google.maps.Polygon(coords,
+							  "#f33f00", 5, 1,"#f00000", 0.2); 
+		  
 		    map.addOverlay(polygon);
 		});
 
