@@ -22,7 +22,7 @@ $(function(){
 		    var map = new google.maps.Map2(document.getElementById("map_canvas"));
 		    map.setCenter(new google.maps.LatLng(neighborhood.centroid_y, 
 							 neighborhood.centroid_x), 13);
-		    var polygon = new GPolygon(	[neighborhood.poly,
+		    var polygon = new GPolygon(	[neighborhood.poly],
 						"#f33f00", 5, 1, "#ff0000", 0.2);
 		    map.addOverlay(polygon);
 		});
