@@ -2,6 +2,18 @@ from django.contrib.gis.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.gis.maps.google.overlays import GPolygon
 
+
+class Place(models.Model):
+    name = models.CharField(max_length=400)
+    place_type = models.CharField(max_length=40)
+    address = models.CharField(max_length=400)
+    static_map = models.URLField()
+    point = models.PointField(srid=4326) 
+    objects = models.GeoManager()
+
+    def __unicode__(self):
+        return self.name
+
 class Neighborhood(models.Model):
     name = models.CharField(max_length=50)
     quad = models.CharField(max_length=2, null=True)

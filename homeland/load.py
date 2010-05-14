@@ -1,24 +1,37 @@
 import os
 from django.contrib.gis.utils import LayerMapping
+from django.contrib.gis.geos import Point
 from django.template.defaultfilters import slugify
-from models import Neighborhood
+
 import re
 import simplejson
 import urllib2,urllib
 from googlemaps import GoogleMaps
-from homeland.views import api_key
 
-def get_locals():
-    things = ['yoga', 'pole dancing', 'coffee shop', 'brew pub']
+from homeland.views import api_key
+from homeland.models import Neighborhood, Place
+
+def get_places():
+    place_types = {'yoga': 'yoga', 'pole': 'pole dancing', 'coffee':'coffee shop', 
+              'beer': 'brew pub', 'strip': 'strip club'}
 
     gmaps = GoogleMaps(api_key)
-
-    local = gmaps.local_search('brew pub near portland, or', numresults=GoogleMaps.MAX_LOCAL_RESULTS)
-    for result in local['responseData']['results']:
-        print result['titleNoFormatting']
-        print result['streetAddress']
-        print (result['lat'], result['lng'])
-
+    for place_type in place_types:
+        local = gmaps.local_search('%s near portland, or' % place_types[place_type], 
+                                   numresults=GoogleMaps.MAX_LOCAL_RESULTS)
+        for result in local['responseData']['results']:
+            kwargs={'name': result['titleNoFormatting'].encode('utf-8'),
+                    'address': result['streetAddress'].encode('utf-8')}
+            try:
+                p = Place.objects.get(**kwargs)
+            except Place.DoesNotExist:
+                p = Place(**dict((k,v) for (k,v) in kwargs.items() if '__' not in k))
+            
+            p.static_map=result['staticMapUrl'].encode('utf-8')
+            p.point=Point(float(result['lng']), float(result['lat']))
+            p.place_type=place_type
+            p.save()
+            print "saved %s" % p.name
 
 def map_quads():
     quad = ""
