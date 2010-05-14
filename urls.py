@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 #                       (r'^$', views.browse_neighborhoods),
 #                       (r'^neighborhood$', views.get_neighborhood),
                        (r'^lookup$', views.lookup),
+                       (r'^local_search$', views.local_search),
                        (r'^$', views.mobile),
 
                        (r'^browse/(?P<quad>[\w]+)', views.browse_by_quad), 

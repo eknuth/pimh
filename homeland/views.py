@@ -6,6 +6,7 @@ from django.contrib.gis.maps.google import GoogleZoom
 from models import Neighborhood
 from forms import AddressForm, SearchForm
 import simplejson
+import urllib2,urllib
 
 api_key='ABQIAAAAkUlmIW1X-La8Y_JDbMsIaBQdkgRPlMVKT1vD1nTRJCRPuPWGKxT4RPVCd15nQW5msLk-f0ljd7C1Eg'
 
@@ -109,3 +110,23 @@ def neighborhood(request, neighborhood_slug):
             'wiki': n.wiki,
             'name': n.name.title()
             })
+
+def local_search(request):
+    if request.GET.get('coords', ''):
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            (lat,lon) = form.cleaned_data['coords'].split(',')
+            query = urllib.urlencode({'q' : 'yoga (%s,%s)' % (lat,lon) })
+            url = 'http://ajax.googleapis.com/ajax/services/search/local?v=1.0&%s&rsz=large' \
+                % (query)
+            request = urllib2.Request(url)
+            response = urllib2.urlopen(request)
+            results = simplejson.load(response)
+            return HttpResponse(simplejson.dumps(results),
+                                mimetype='application/json')
+    else:
+        form = SearchForm()
+        return render_to_response('search.html', {
+                'form': form,
+                })
+    
