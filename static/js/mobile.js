@@ -21,7 +21,7 @@ $(function(){
 	    bind('pageAnimationEnd', function(e, info){
 		    var map = new google.maps.Map2(document.getElementById("map_canvas"));
 		    map.setCenter(new google.maps.LatLng(neighborhood.centroid_y, 
-							 neighborhood.centroid_x), 13);
+							 neighborhood.centroid_x), 14);
 		    
 		    coords=eval(neighborhood.polygon);
 		    
@@ -46,8 +46,9 @@ if (neighborhood == "unknown") {
 			      neighborhood = data;
 			      neighborhood_slug = data.slug;
 			      $('#results').html('You are in ' + data.name);
-			      $('dneighborhood_link').attr('href', '/neighborhood/' + data.slug);
-			      $('#wikilink').attr('href', data.wiki);
+			      var wiki_url='http://en.m.wikipedia.org/wiki/' + data.wiki;
+			      $('#wikilink').attr('href', wiki_url);
+
 			      $('#wikilink').text('Wikipedia Entry for ' + data.name);
 			      $('#neighborhood_link').text(data.name + ' Information');
 			      $('#status').hide();

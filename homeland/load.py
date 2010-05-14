@@ -3,6 +3,21 @@ from django.contrib.gis.utils import LayerMapping
 from django.template.defaultfilters import slugify
 from models import Neighborhood
 import re
+import simplejson
+import urllib2,urllib
+from googlemaps import GoogleMaps
+from homeland.views import api_key
+
+def get_locals():
+    things = ['yoga', 'pole dancing', 'coffee shop', 'brew pub']
+
+    gmaps = GoogleMaps(api_key)
+
+    local = gmaps.local_search('brew pub near portland, or', numresults=GoogleMaps.MAX_LOCAL_RESULTS)
+    for result in local['responseData']['results']:
+        print result['titleNoFormatting']
+        print result['streetAddress']
+        print (result['lat'], result['lng'])
 
 
 def map_quads():
@@ -18,6 +33,7 @@ def map_quads():
                 try:
                     n = Neighborhood.objects.get(slug=slugify(m.group(2)))
                     n.quad=quad
+                    n.wiki=m.group(1).replace(' ', '_')
                     n.save()
                     #neighborhoods[slugify(m.group(2))] = {'quad': quad, 'wiki': m.group(1).replace(' ', '_')}
                 except:
