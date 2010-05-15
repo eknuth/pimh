@@ -1,0 +1,20 @@
+
+
+<div id="local">
+  <div class="toolbar">
+    <h1 class="neighborhood_title">Local</h1>
+    <a class="back" href="#neighborhood">pimh</a>
+  </div>
+  
+<ul class="plastic">
+{% for place in places %}
+  <li class="arrow"><a href="#map">{{ place }}</a></li>
+{% endfor %}
+</ul>
+
+<ul class="plastic">
+  <li class="forward">
+    <a href="#" target="_blank" id="wikilink">Wikipedia Page</a>
+  </li>
+</ul>  
+</div>
