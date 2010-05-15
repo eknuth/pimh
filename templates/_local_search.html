@@ -10,7 +10,7 @@
 {% for place in places %}
   <li class="arrow">
     <a href="/place/{{ place.id }}">{{ place }}
-      <small class="counter">({{place.distance.mi|floatformat }} miles)</small></a>
+     {% comment %} <small class="counter">({{place.distance.mi|floatformat }} m)</small>{% endcomment %}</a>
   </li>
 {% endfor %}
 </ul>
