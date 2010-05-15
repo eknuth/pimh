@@ -13,7 +13,7 @@ from homeland.models import Neighborhood, Place
 
 def get_places():
     place_types = {'yoga': 'yoga', 'pole': 'pole dancing', 'coffee':'coffee shop', 
-              'beer': 'brew pub', 'strip': 'strip club'}
+              'beer': 'brew pub', 'strip': 'strip club', 'bikes': 'bicycle shop'}
 
     gmaps = GoogleMaps(api_key)
     for place_type in place_types:

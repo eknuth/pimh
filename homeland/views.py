@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 from geopy import geocoders 
 from django.contrib.gis.geos import Point, Polygon, MultiPolygon
 from django.contrib.gis.maps.google import GoogleZoom
-
+from django.contrib.gis.measure import D as distance
 import simplejson
 import urllib2,urllib
 
@@ -118,9 +118,12 @@ def local_search(request, place_type):
     if request.GET.get('coords', ''):
         form = SearchForm(request.GET)
         if form.is_valid():
-            places = Place.objects.filter(place_type=place_type)
+            (lat,lon) = form.cleaned_data['coords'].split(',')
+            search_point = Point(float(lat),float(lon))
+            places = Place.objects.distance(search_point).filter(place_type=place_type).filter(point__distance_lte=(search_point, distance(mi=2))).order_by('distance')
             return render_to_response('_local_search.html', {
-                'places': places
+                    'title': place_type,
+                    'places': places
                 })
 
     else:
@@ -129,3 +132,8 @@ def local_search(request, place_type):
                 'form': form,
                 })
     
+def place(request, place_id):
+    p = Place.objects.get(id=place_id)
+    return render_to_response('_place.html', {
+            'place': p,
+            })

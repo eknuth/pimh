@@ -57,6 +57,7 @@ if (neighborhood == "unknown") {
 			      $('#yoga_link').attr('href', '/local/yoga?coords=' + coords);
 			      $('#coffee_link').attr('href', '/local/coffee?coords=' + coords);
 			      $('#beer_link').attr('href', '/local/beer?coords=' + coords);
+			      $('#bike_link').attr('href', '/local/bikes?coords=' + coords);
 			      $('#strip_link').attr('href', '/local/strip?coords=' + coords);
 			      $('#pole_link').attr('href', '/local/pole?coords=' + coords);
 

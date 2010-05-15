@@ -8,7 +8,7 @@ class Place(models.Model):
     place_type = models.CharField(max_length=40)
     address = models.CharField(max_length=400)
     static_map = models.URLField()
-    point = models.PointField(srid=4326) 
+    point = models.PointField(srid=4326)#, geography=True) 
     objects = models.GeoManager()
 
     def __unicode__(self):
@@ -19,7 +19,7 @@ class Neighborhood(models.Model):
     quad = models.CharField(max_length=2, null=True)
     slug = models.CharField(max_length=50)
     wiki = models.CharField(max_length=100, null=True)
-    poly = models.PolygonField(srid=4326) 
+    poly = models.PolygonField(srid=4326)#, geography=True) 
     objects = models.GeoManager()
 
     def gpoly(self):
