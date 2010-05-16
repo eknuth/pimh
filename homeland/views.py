@@ -12,7 +12,7 @@ from forms import AddressForm, SearchForm
 
 
 api_key='ABQIAAAAkUlmIW1X-La8Y_JDbMsIaBQdkgRPlMVKT1vD1nTRJCRPuPWGKxT4RPVCd15nQW5msLk-f0ljd7C1Eg'
-
+yelp_api_key='TyYPaW3bfrfJC4v0RIsiaQ'
 def get_neighborhood_by_point(point):
     """
     Get Neighborhood by Point
