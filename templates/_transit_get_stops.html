@@ -1,0 +1,19 @@
+
+
+<div id="transit">
+  <div class="toolbar">
+    <h1 class="neighborhood_title">Transit</h1>
+    <a class="back" href="#transit">pimh</a>
+  </div>
+  
+<ul class="metal">
+{% for stop in stops %}
+  <li>
+    <a href="/transit/stop/{{ stop.stop_id }}">{{ stop }} 
+      <em>Direction</em>
+      <small class="counter">({{stop.distance.mi|floatformat }} m)</small></a>
+  </li>
+{% endfor %}
+</ul>
+Route and arrival data provided by permission of TriMet
+</div>
