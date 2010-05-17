@@ -25,6 +25,8 @@ def get_nearby_stops(request):
             nearby_stops=[]
             for stop in stops:
                 if not routes.has_key("%s_%s" % (stop.route, stop.dir)):
+                    r = BusLine.objects.get(route=stop.route, dir=stop.dir)
+                    stop.dir_desc = r.dir_desc
                     routes["%s_%s" % (stop.route, stop.dir)]=True
                     nearby_stops.append(stop)
             return render_to_response('_transit_get_stops.html', {

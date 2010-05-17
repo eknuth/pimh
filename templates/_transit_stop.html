@@ -9,7 +9,9 @@
 <ul class="metal">
 {% for arrival in arrivals %}
 <li>
-  <a href="/transit/stop/">{{ arrival.sign }}, {{ arrival.arrival_time }}</a>
+  <a href="/transit/stop/">{{ arrival.sign }}</a>
+      <em>{{ arrival.arrival_time }}</em>
+      <small class="counter">()</small></a>
 </li>
 {% endfor %}
 </ul>
