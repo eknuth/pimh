@@ -9,7 +9,7 @@ from xml.etree import ElementTree as ET
 import time
 
 from homeland.forms import SearchForm
-from transit.models import TransitStop
+from transit.models import TransitStop, BusStop, BusLine
 
 trimet_appid = "8DB644071B69C6C564921EE46"
 trimet_arrivals_url = "http://developer.trimet.org/ws/V1/arrivals?appID=%s&" % trimet_appid
@@ -20,7 +20,7 @@ def get_nearby_stops(request):
         if form.is_valid():
             (lat,lon) = form.cleaned_data['coords'].split(',')
             search_point = Point(float(lat),float(lon))
-            stops = TransitStop.objects.distance(search_point).filter(point__distance_lte=(search_point, distance(mi=1))).order_by('distance')
+            stops = BusStop.objects.distance(search_point).filter(geom__distance_lte=(search_point, distance(mi=1))).order_by('distance')
             return render_to_response('_transit_get_stops.html', {
                     'stops': stops
                 })

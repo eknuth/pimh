@@ -9,8 +9,8 @@
 <ul class="metal">
 {% for stop in stops %}
   <li>
-    <a href="/transit/stop/{{ stop.stop_id }}">{{ stop }} 
-      <em>Direction</em>
+    <a href="/transit/stop/{{ stop.stop_id }}">{{ stop.route }} 
+      <em>{{ stop.dir }}</em>
       <small class="counter">({{stop.distance.mi|floatformat }} m)</small></a>
   </li>
 {% endfor %}

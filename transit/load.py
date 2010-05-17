@@ -10,7 +10,7 @@ from googlemaps import GoogleMaps
 
 from homeland.views import api_key
 from homeland.models import Neighborhood, Place
-from transit.models import TransitStop
+from transit.models import TransitStop, BusStop, BusLine, busstop_mapping, busline_mapping
 
 def load_stops():
     "stop_id,stop_code,stop_name,stop_desc,stop_lat,stop_lon,zone_id,location_type"
@@ -30,4 +30,19 @@ def load_stops():
         print "Saved %s" % ts.stop_name
                         
                          
+
+
+line_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data/buslines.shp'))
+stop_shp = os.path.abspath(os.path.join(os.path.dirname(__file__), 'data/busstops.shp'))
+
+def run(verbose=True):
+    source_srs=102726
+
+    stop_lm = LayerMapping(BusStop, stop_shp, busstop_mapping,
+                      transform=True, encoding='iso-8859-1', source_srs=source_srs)
+    line_lm = LayerMapping(BusLine, line_shp, busline_mapping,
+                      transform=True, encoding='iso-8859-1', source_srs=source_srs)
+
+    stop_lm.save(strict=True, verbose=verbose)
+    line_lm.save(strict=True, verbose=verbose)
         
