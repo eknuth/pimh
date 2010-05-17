@@ -1,15 +1,18 @@
 
 
-<div id="place">
+<div id="place_{{ place.id }}">
   <div class="toolbar">
     <h1 class="neighborhood_title">{{ place.name }}</h1>
     <a class="back" href="#{{ place.place_type }}">{{ place.place_type }}</a>
   </div>
   
-<ul class="plastic">
-  <li class="arrow"><a href="/place/{{ place.id }}">{{ place.address }}</a></li>
-  <li class="arrow"><a href="/place/{{ place.id }}">Website for {{ place }}</a></li>
-
+  <div class="info">
+ 
+     <p><img src={{ place.static_map }}></p>
+        {{ place }}
+      <em>{{ place.address }}</em>
+    {% comment %} <small class="counter">({{place.distance.mi|floatformat }} m)</small> {% endcomment %}
+ </div>
 
 </ul>
 

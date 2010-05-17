@@ -66,10 +66,20 @@ if (neighborhood == "unknown") {
 			      $('#neighborhood_link').text(data.name + ' Information');
 			      $('#neighborhood_title').text(data.name);
 			      $('#status').hide();
+			      $('#results').hide();
 			  });   
 	    });
     }
     else {
 	neighborhood = 'NA';
+	var wiki_url='http://en.m.wikipedia.org/wiki/' + data.wiki;
+	$('#wikilink').attr('href', wiki_url);
+	$('#yoga_link').attr('href', '/local/yoga?neighborhood=' + coords);
+	$('#coffee_link').attr('href', '/local/coffee?neighborhood=' + coords);
+	$('#beer_link').attr('href', '/local/beer?neighborhood=' + coords);
+	$('#bike_link').attr('href', '/local/bikes?neighborhood=' + coords);
+	$('#strip_link').attr('href', '/local/strip?neighborhood=' + coords);
+	$('#pole_link').attr('href', '/local/pole?neighborhood=' + coords);
+	$('#transit_link').attr('href', '/transit/stops?neighborhood=' + coords);
     }
 }
