@@ -1,0 +1,19 @@
+
+
+<div id="transit">
+  <div class="toolbar">
+    <h1 class="neighborhood_title">Transit</h1>
+    <a class="back" href="#neighborhood">pimh</a>
+  </div>
+  
+<ul class="edgetoedge">
+  <li class="sep">F</li>
+{% for arrival in arrivals %}
+<li class="arrow">
+  <a href="/transit/stop/">{{ arrival.sign }}, {{ arrival.estimated }}</a>
+</li>
+{% endfor %}
+</ul>
+{{ response }}
+{{ url }}
+</div>

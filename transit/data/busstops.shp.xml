@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<metadata>
+	<idinfo>
+		<citation>
+			<citeinfo>
+				<origin>Metro Data Resource Center</origin>
+				<pubdate>1996</pubdate>
+				<title>TriMet Bus System (stops)</title>
+				<ftname Sync="TRUE">busstops</ftname><geoform Sync="TRUE">vector digital data</geoform><onlink Sync="TRUE">\\192.168.10.11\rlislite\transit\busstops.shp</onlink></citeinfo>
+		</citation>
+		<descript>
+			<abstract>The bus system is composed of one line layer (bus routes) and three point layers (bus stops, bus labels and downtown bus labels).</abstract>
+			<purpose></purpose>
+			<supplinf>Derived quarterly from route systems maintained by TriMet on top of Metro's street network coverage.</supplinf>
+			<langdata Sync="TRUE">en</langdata></descript>
+		<timeperd>
+			<timeinfo>
+				<sngdate>
+					<caldate>20091026</caldate>
+				</sngdate>
+			</timeinfo>
+			<current>Ground condition</current>
+		</timeperd>
+		<status>
+			<progress>Complete</progress>
+			<update>Quarterly</update>
+		</status>
+		<spdom>
+			<bounding>
+				<westbc> -123.15156069 </westbc>
+				<eastbc>-122.31651100  </eastbc>
+				<northbc>45.70263875    </northbc>
+				<southbc>45.23396470    </southbc>
+			</bounding>
+			<lboundng><leftbc Sync="TRUE">7531831.200131</leftbc><rightbc Sync="TRUE">7746861.200131</rightbc><bottombc Sync="TRUE">595433.000000</bottombc><topbc Sync="TRUE">726731.299869</topbc></lboundng></spdom>
+		<keywords>
+			<theme>
+				<themekt>None </themekt>
+				<themekey>Bus</themekey>
+				<themekey>transit</themekey>
+				<themekey>transportation</themekey>
+				<themekey>Tri-met</themekey>
+				<themekey>Trimet</themekey>
+			</theme>
+			<place>
+				<placekt>None </placekt>
+				<placekey>Portland</placekey>
+				<placekey>Multnomah County</placekey>
+				<placekey>Washington County</placekey>
+				<placekey>Clackamas County</placekey>
+				<placekey>Oregon</placekey>
+			</place>
+		</keywords>
+		<accconst>None</accconst>
+		<useconst>None</useconst>
+		<native Sync="TRUE">Microsoft Windows XP Version 5.1 (Build 2600) Service Pack 3; ESRI ArcCatalog 9.3.1.3000</native><natvform Sync="TRUE">Shapefile</natvform></idinfo>
+	<dataqual>
+		<logic></logic>
+		<complete></complete>
+		<posacc>
+			<horizpa>
+				<horizpar>
+				Registered to streets. The street linework is contained within the street rights-of-way as shown on the tax lot layer. As the tax lot horizonal accuracy is improved, streets are adjusted accordingly. The tax lots are digitized at +/- 10 feet accuracy. Beaverton, Oregon City and Tigard planning areas are improved to +/- 5 feet accuracy. Multnomah County was created with coordinate geometry using better control. 
+				</horizpar>
+			</horizpa>
+		</posacc>
+		<lineage>
+			<procstep>
+				<procdesc> Projection information (.prj file), compatible with ArcGIS 8.1, was added to the layer.</procdesc>
+				<procdate>20010715</procdate>
+			</procstep>
+			<procstep>
+				<procdesc> Added Route field to shapefile and SDE-layer.</procdesc>
+				<procdate>20021031</procdate>
+			</procstep>
+			<procstep>
+				<procdesc> Data now maintained as a versioned feature class within an SDE geodatabase.</procdesc>
+				<procdate>20090211</procdate>
+			</procstep>
+		</lineage>
+	</dataqual>
+	<spdoinfo>
+		<direct>Vector</direct>
+		<ptvctinf>
+			<sdtsterm Name="busstops">
+				<sdtstype> Point</sdtstype>
+				<ptvctcnt Sync="TRUE">9672</ptvctcnt></sdtsterm>
+			<esriterm Name="busstops"><efeatyp Sync="TRUE">Simple</efeatyp><efeageom Sync="TRUE">Point</efeageom><esritopo Sync="TRUE">FALSE</esritopo><efeacnt Sync="TRUE">9672</efeacnt><spindex Sync="TRUE">TRUE</spindex><linrefer Sync="TRUE">FALSE</linrefer></esriterm></ptvctinf>
+		<rastinfo>
+			<rasttype>Grid cell</rasttype>
+		</rastinfo>
+	</spdoinfo>
+	<spref>
+		<horizsys>
+			<planar>
+				<planci>
+					<plance></plance>
+					<plandu>International feet</plandu>
+					<coordrep><absres Sync="TRUE">0.000000</absres><ordres Sync="TRUE">0.000000</ordres></coordrep></planci>
+				<mapproj><mapprojn Sync="TRUE">Lambert Conformal Conic</mapprojn><lambertc><stdparll Sync="TRUE">44.333333</stdparll><stdparll Sync="TRUE">46.000000</stdparll><longcm Sync="TRUE">-120.500000</longcm><latprjo Sync="TRUE">43.666667</latprjo><feast Sync="TRUE">8202099.737533</feast><fnorth Sync="TRUE">0.000000</fnorth></lambertc></mapproj></planar>
+			<geodetic>
+				<horizdn>North American Datum of 1983/1991 (HPGN)</horizdn>
+				<semiaxis></semiaxis>
+				<ellips Sync="TRUE">Geodetic Reference System 80</ellips><denflat Sync="TRUE">298.257222</denflat></geodetic>
+			<cordsysn><geogcsn Sync="TRUE">GCS_North_American_1983_HARN</geogcsn><projcsn Sync="TRUE">NAD_1983_HARN_StatePlane_Oregon_North_FIPS_3601</projcsn></cordsysn></horizsys>
+	</spref>
+	<eainfo>
+		<detailed Name="busstops">
+			<enttyp>
+				<enttypl>Busstops.dbf</enttypl>
+				<enttypd>Location of TriMet bus stops.</enttypd>
+				<enttypds></enttypds>
+				<enttypt Sync="TRUE">Feature Class</enttypt><enttypc Sync="TRUE">9672</enttypc></enttyp>
+			<attr>
+				<attrlabl>FID</attrlabl>
+				<attrdef>Feature ID</attrdef>
+				<attrdomv><udom Sync="TRUE">Sequential unique whole numbers that are automatically generated.</udom></attrdomv>
+				<attalias Sync="TRUE">FID</attalias><attrtype Sync="TRUE">OID</attrtype><attwidth Sync="TRUE">4</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale><attrdefs Sync="TRUE">ESRI</attrdefs></attr>
+			<attr>
+				<attrlabl>Shape</attrlabl>
+				<attrdef>Column containing the shape geometry</attrdef>
+				<attrdomv><udom Sync="TRUE">Coordinates defining the features.</udom></attrdomv>
+				<attalias Sync="TRUE">Shape</attalias><attrtype Sync="TRUE">Geometry</attrtype><attwidth Sync="TRUE">0</attwidth><atprecis Sync="TRUE">0</atprecis><attscale Sync="TRUE">0</attscale><attrdefs Sync="TRUE">ESRI</attrdefs></attr>
+			<attr>
+				<attrlabl>ROUTE</attrlabl>
+				<attrdef>TriMet route number without the direction suffix number.</attrdef>
+				<attrdomv>
+				</attrdomv>
+				<attalias Sync="TRUE">ROUTE</attalias><attrtype Sync="TRUE">String</attrtype><attwidth Sync="TRUE">50</attwidth></attr>
+			<attr>
+				<attrlabl>KEYITEM</attrlabl>
+				<attrdef>"Join" key of Route+Direction.</attrdef>
+				<attrdomv>
+				</attrdomv>
+				<attalias Sync="TRUE">KEYITEM</attalias><attrtype Sync="TRUE">String</attrtype><attwidth Sync="TRUE">4</attwidth></attr>
+			<attr>
+				<attrlabl>RTE</attrlabl>
+				<attrdef>TriMet bus route number.</attrdef>
+				<attrdomv>
+				</attrdomv>
+				<attalias Sync="TRUE">RTE</attalias><attrtype Sync="TRUE">String</attrtype><attwidth Sync="TRUE">3</attwidth></attr>
+			<attr>
+				<attrlabl>ZIP</attrlabl>
+				<attrdef>ZIP Code in which the stop is located.</attrdef>
+				<attrdomv>
+				</attrdomv>
+				<attalias Sync="TRUE">ZIP</attalias><attrtype Sync="TRUE">Number</attrtype><attwidth Sync="TRUE">11</attwidth></attr>
+			<attr>
+				<attrlabl>LOC_ID</attrlabl>
+				<attrdef>Location ID.</attrdef>
+				<attrdomv>
+				</attrdomv>
+				<attalias Sync="TRUE">LOC_ID</attalias><attrtype Sync="TRUE">Number</attrtype><attwidth Sync="TRUE">11</attwidth></attr>
+			<attr>
+				<attrlabl>LOCATION</attrlabl>
+				<attrdef>Street and nearest cross street of stop.</attrdef>
+				<attrdomv>
+				</attrdomv>
+				<attalias Sync="TRUE">LOCATION</attalias><attrtype Sync="TRUE">String</attrtype><attwidth Sync="TRUE">40</attwidth></attr>
+			<attr>
+				<attrlabl>JURISDIC</attrlabl>
+				<attrdef>Jurisdiction in which the stop is located.</attrdef>
+				<attrdomv>
+				</attrdomv>
+				<attalias Sync="TRUE">JURISDIC</attalias><attrtype Sync="TRUE">String</attrtype><attwidth Sync="TRUE">14</attwidth></attr>
+			<attr>
+				<attrlabl>DIR</attrlabl>
+				<attrdef>TriMet direction in/outbound.</attrdef>
+				<attrdomv>
+					<edom>
+						<edomv>1</edomv>
+						<edomvd>Inbound</edomvd>
+						<edomvds></edomvds>
+					</edom>
+					<edom>
+						<edomv>0</edomv>
+						<edomvd>Outbound</edomvd>
+						<edomvds></edomvds>
+					</edom>
+				</attrdomv>
+				<attalias Sync="TRUE">DIR</attalias><attrtype Sync="TRUE">Number</attrtype><attwidth Sync="TRUE">11</attwidth></attr>
+		</detailed>
+	</eainfo>
+	<distinfo>
+		<distrib>
+			<cntinfo>
+				<cntorgp>
+					<cntorg>Metro Data Resource Center</cntorg>
+				</cntorgp>
+				<cntaddr>
+					<addrtype></addrtype>
+					<address>600 NE Grand Ave.</address>
+					<city>Portland</city>
+					<state>OR</state>
+					<postal>97232</postal>
+				</cntaddr>
+				<cntvoice>503 797-1742</cntvoice>
+				<cntfax>503 797-1909</cntfax>
+				<cntemail>drc@metro.dst.or.us</cntemail>
+			</cntinfo>
+		</distrib>
+		<distliab>The information in this file was derived from digital databases on Metro's GIS. Care was taken in the creation of this file.  Metro cannot accept any responsibility for errors, omissions, or positional accuracy.  There are no warranties, expressed or implied.</distliab>
+		<stdorder>
+			<digform>
+				<digtinfo>
+					<formname>Shapefile or ESRI geodatabase format. Hourly fee will be charged for conversion</formname>
+					<transize></transize>
+					<dssize Sync="TRUE">0.258</dssize></digtinfo>
+				<digtopt>
+					<offoptn>
+						<offmedia>CD-ROM or DVD</offmedia>
+						<recfmt> ISO9660 (DOS, Unix, or Macintosh)</recfmt>
+					</offoptn>
+					<onlinopt>
+						<computer>
+							<networka>
+								<networkr>ftp.oregonmetro.gov</networkr>
+							</networka>
+						</computer>
+						<accinstr> Metro can place data on its FTP site on request.  In most cases, a fee for the data will be charged.  Call 503 797-1742 or email drc@metro.dst.or.us for instructions.</accinstr>
+					</onlinopt>
+				</digtopt>
+			</digform>
+			<fees>See RLIS Lite pricing at http://www.oregonmetro.gov/index.cfm/go/by.web/id=593</fees>
+		</stdorder>
+		<resdesc Sync="TRUE">Downloadable Data</resdesc></distinfo>
+	<metainfo>
+		<metd>20091026</metd>
+		<metc>
+			<cntinfo>
+				<cntorgp>
+					<cntorg>Metro Data Resource Center</cntorg>
+					<cntper>Minott Kerr</cntper>
+				</cntorgp>
+				<cntaddr>
+					<addrtype>mailing and physical address</addrtype>
+					<address>600 NE Grand Ave.</address>
+					<city>Portland</city>
+					<state>OR</state>
+					<postal>97232</postal>
+				</cntaddr>
+				<cntvoice>503 797-1679</cntvoice>
+				<cntfax>503 797-1909</cntfax>
+				<cntemail>minott.kerr@oregonmetro.gov</cntemail>
+			</cntinfo>
+		</metc>
+		<metstdn>FGDC Content Standards for Digital Geospatial Metadata</metstdn>
+		<metstdv> 19940608</metstdv>
+		<langmeta Sync="TRUE">en</langmeta><mettc Sync="TRUE">local time</mettc><metextns><onlink Sync="TRUE">http://www.esri.com/metadata/esriprof80.html</onlink><metprof Sync="TRUE">ESRI Metadata Profile</metprof></metextns></metainfo>
+	<dataIdInfo><envirDesc Sync="TRUE">Microsoft Windows XP Version 5.1 (Build 2600) Service Pack 3; ESRI ArcCatalog 9.3.1.3000</envirDesc><dataLang><languageCode Sync="TRUE" value="en"></languageCode></dataLang><idCitation><resTitle Sync="TRUE">busstops</resTitle><presForm><PresFormCd Sync="TRUE" value="005"></PresFormCd></presForm></idCitation><spatRpType><SpatRepTypCd Sync="TRUE" value="001"></SpatRepTypCd></spatRpType><dataExt><geoEle><GeoBndBox esriExtentType="native"><westBL Sync="TRUE">7531831.200131</westBL><eastBL Sync="TRUE">7746861.200131</eastBL><northBL Sync="TRUE">726731.299869</northBL><southBL Sync="TRUE">595433</southBL><exTypeCode Sync="TRUE">1</exTypeCode></GeoBndBox></geoEle></dataExt><geoBox esriExtentType="decdegrees"><westBL Sync="TRUE">-123.120602</westBL><eastBL Sync="TRUE">-122.268978</eastBL><northBL Sync="TRUE">45.646261</northBL><southBL Sync="TRUE">45.270274</southBL><exTypeCode Sync="TRUE">1</exTypeCode></geoBox></dataIdInfo><mdLang><languageCode Sync="TRUE" value="en"></languageCode></mdLang><mdStanName Sync="TRUE">ISO 19115 Geographic Information - Metadata</mdStanName><mdStanVer Sync="TRUE">DIS_ESRI1.0</mdStanVer><mdChar><CharSetCd Sync="TRUE" value="004"></CharSetCd></mdChar><mdHrLv><ScopeCd Sync="TRUE" value="005"></ScopeCd></mdHrLv><mdHrLvName Sync="TRUE">dataset</mdHrLvName><distInfo><distributor><distorTran><onLineSrc><orDesc Sync="TRUE">002</orDesc><linkage Sync="TRUE">file://\\192.168.10.11\rlislite\transit\busstops.shp</linkage><protocol Sync="TRUE">Local Area Network</protocol></onLineSrc><transSize Sync="TRUE">0.258</transSize></distorTran><distorFormat><formatName Sync="TRUE">Shapefile</formatName></distorFormat></distributor></distInfo><refSysInfo><RefSystem><refSysID><identCode Sync="TRUE">NAD_1983_HARN_StatePlane_Oregon_North_FIPS_3601</identCode></refSysID></RefSystem></refSysInfo><spatRepInfo><VectSpatRep><topLvl><TopoLevCd Sync="TRUE" value="001"></TopoLevCd></topLvl><geometObjs Name="busstops"><geoObjTyp><GeoObjTypCd Sync="TRUE" value="004"></GeoObjTypCd></geoObjTyp><geoObjCnt Sync="TRUE">9672</geoObjCnt></geometObjs></VectSpatRep></spatRepInfo><Esri><SyncDate>20091113</SyncDate><SyncTime>12284400</SyncTime><ModDate>20091113</ModDate><ModTime>12284400</ModTime><DataProperties><lineage><Process ToolSource="C:\Program Files\ArcGIS\ArcToolbox\Toolboxes\Data Management Tools.tbx\AddSpatialIndex" Date="20100201" Time="143023">AddSpatialIndex R:\\rlislite\\DVD\\ESRISHAPEFILES\\TRANSIT\busstops.shp 0 0 0 R:\\rlislite\\DVD\\ESRISHAPEFILES\\TRANSIT\busstops.shp</Process><Process ToolSource="C:\Program Files\ArcGIS\ArcToolbox\Toolboxes\Data Management Tools.tbx\RemoveSpatialIndex" Date="20100201" Time="160216">RemoveSpatialIndex R:\\rlislite\\DVD\\ESRISHAPEFILES\\TRANSIT\busstops.shp R:\\rlislite\\DVD\\ESRISHAPEFILES\\TRANSIT\busstops.shp</Process><Process ToolSource="C:\Program Files\ArcGIS\ArcToolbox\Toolboxes\Data Management Tools.tbx\AddSpatialIndex" Date="20100201" Time="160216">AddSpatialIndex R:\\rlislite\\DVD\\ESRISHAPEFILES\\TRANSIT\busstops.shp 0 0 0 R:\\rlislite\\DVD\\ESRISHAPEFILES\\TRANSIT\busstops.shp</Process><Process ToolSource="C:\Program Files\ArcGIS\ArcToolbox\Toolboxes\Data Management Tools.tbx\RemoveSpatialIndex" Date="20100202" Time="094410">RemoveSpatialIndex R:\\rlislite\\DVD\\ESRISHAPEFILES\\TRANSIT\busstops.shp R:\\rlislite\\DVD\\ESRISHAPEFILES\\TRANSIT\busstops.shp</Process><Process ToolSource="C:\Program Files\ArcGIS\ArcToolbox\Toolboxes\Data Management Tools.tbx\AddSpatialIndex" Date="20100202" Time="094410">AddSpatialIndex R:\\rlislite\\DVD\\ESRISHAPEFILES\\TRANSIT\busstops.shp 0 0 0 R:\\rlislite\\DVD\\ESRISHAPEFILES\\TRANSIT\busstops.shp</Process><Process ToolSource="C:\Program Files\ArcGIS\ArcToolbox\Toolboxes\Data Management Tools.tbx\RemoveSpatialIndex" Date="20100202" Time="122830">RemoveSpatialIndex R:\\rlislite\\DVD\\ESRISHAPEFILES\\TRANSIT\busstops.shp R:\\rlislite\\DVD\\ESRISHAPEFILES\\TRANSIT\busstops.shp</Process><Process ToolSource="C:\Program Files\ArcGIS\ArcToolbox\Toolboxes\Data Management Tools.tbx\AddSpatialIndex" Date="20100202" Time="122830">AddSpatialIndex R:\\rlislite\\DVD\\ESRISHAPEFILES\\TRANSIT\busstops.shp 0 0 0 R:\\rlislite\\DVD\\ESRISHAPEFILES\\TRANSIT\busstops.shp</Process></lineage></DataProperties></Esri><mdDateSt Sync="TRUE">20091113</mdDateSt></metadata>
