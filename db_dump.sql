@@ -10634,7 +10634,7 @@ ALTER SEQUENCE homeland_place_id_seq OWNED BY homeland_place.id;
 -- Name: homeland_place_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homeland
 --
 
-SELECT pg_catalog.setval('homeland_place_id_seq', 131, true);
+SELECT pg_catalog.setval('homeland_place_id_seq', 165, true);
 
 
 --
@@ -10651,6 +10651,53 @@ CREATE TABLE spatial_ref_sys (
 
 
 ALTER TABLE public.spatial_ref_sys OWNER TO homeland;
+
+--
+-- Name: transit_transitstop; Type: TABLE; Schema: public; Owner: homeland; Tablespace: 
+--
+
+CREATE TABLE transit_transitstop (
+    id integer NOT NULL,
+    stop_id integer NOT NULL,
+    stop_name character varying(100) NOT NULL,
+    stop_desc character varying(400) NOT NULL,
+    zone_id integer NOT NULL,
+    point geometry NOT NULL,
+    CONSTRAINT enforce_dims_point CHECK ((st_ndims(point) = 2)),
+    CONSTRAINT enforce_geotype_point CHECK (((geometrytype(point) = 'POINT'::text) OR (point IS NULL))),
+    CONSTRAINT enforce_srid_point CHECK ((st_srid(point) = 4326))
+);
+
+
+ALTER TABLE public.transit_transitstop OWNER TO homeland;
+
+--
+-- Name: transit_transitstop_id_seq; Type: SEQUENCE; Schema: public; Owner: homeland
+--
+
+CREATE SEQUENCE transit_transitstop_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.transit_transitstop_id_seq OWNER TO homeland;
+
+--
+-- Name: transit_transitstop_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: homeland
+--
+
+ALTER SEQUENCE transit_transitstop_id_seq OWNED BY transit_transitstop.id;
+
+
+--
+-- Name: transit_transitstop_id_seq; Type: SEQUENCE SET; Schema: public; Owner: homeland
+--
+
+SELECT pg_catalog.setval('transit_transitstop_id_seq', 1, false);
+
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: homeland
@@ -10734,6 +10781,13 @@ ALTER TABLE homeland_neighborhood ALTER COLUMN id SET DEFAULT nextval('homeland_
 --
 
 ALTER TABLE homeland_place ALTER COLUMN id SET DEFAULT nextval('homeland_place_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: homeland
+--
+
+ALTER TABLE transit_transitstop ALTER COLUMN id SET DEFAULT nextval('transit_transitstop_id_seq'::regclass);
 
 
 --
@@ -10879,6 +10933,7 @@ COPY django_site (id, domain, name) FROM stdin;
 COPY geometry_columns (f_table_catalog, f_table_schema, f_table_name, f_geometry_column, coord_dimension, srid, type) FROM stdin;
 	public	homeland_neighborhood	poly	2	4326	POLYGON
 	public	homeland_place	point	2	4326	POINT
+	public	transit_transitstop	point	2	4326	POINT
 \.
 
 
@@ -11025,17 +11080,13 @@ COPY homeland_neighborhood (id, name, quad, slug, wiki, poly) FROM stdin;
 --
 
 COPY homeland_place (id, name, place_type, address, static_map, point) FROM stdin;
-1	Primal Beginnings	pole	2409 Southeast 49th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.50511%2C-122.612063	0101000020E6100000DE054A0A2CA75EC0F870C971A7C04640
-2	ECDYSIAST a pole dance studio	pole	326 Southeast Madison Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.512922%2C-122.662437	0101000020E610000043AA285E65AA5EC010B3976DA7C14640
-3	Diva Den Studio ~ The Largest Pole Dance Studio in the NW	pole	9220 Southwest Barbur Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.458834%2C-122.708168	0101000020E6100000B804E09F52AD5EC07D259012BBBA4640
-4	Deschutes Brewery Portland Public House	beer	210 Northwest 11th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.524615%2C-122.681867	0101000020E61000002F4E7CB5A3AB5EC0DAFE959526C34640
+23	St John's Theater	beer	8203 North Ivanhoe Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.58865%2C-122.751642	0101000020E610000034130CE71AB05EC02C6519E258CB4640
 5	Bridgeport Brewing Company: Brewpub	beer	1313 Northwest Marshall Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.530794%2C-122.684541	0101000020E61000005AF10D85CFAB5EC0DE74CB0EF1C34640
 6	Green Dragon Bistro & Brew Pub	beer	928 Southeast 9th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.515986%2C-122.656538	0101000020E610000033A5F5B704AA5EC0D09849D40BC24640
 7	Amnesia Brewing	beer	832 North Beech Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.549437%2C-122.675314	0101000020E6100000FB21365838AB5EC02E1B9DF353C64640
 8	Alameda Brewing Co	beer	4765 Northeast Fremont Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.548506%2C-122.61365	0101000020E6100000304CA60A46A75EC074D4D17135C64640
 9	Tug Boat Brewing Co	beer	711 Southwest Ankeny Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.522735%2C-122.678197	0101000020E6100000B3CF639467AB5EC0BEBC00FBE8C24640
 10	Old Lompoc LLC	beer	3901 North Williams Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.551018%2C-122.667077	0101000020E61000007CBABA63B1AA5EC0F0C000C287C64640
-11	Hopworks Urban Brewery	beer	2944 Southeast Powell Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.495869%2C-122.634875	0101000020E61000001283C0CAA1A85EC0D40CA9A278BF4640
 12	Rogue Ales Public House	beer	1339 Northwest Flanders Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.525771%2C-122.684788	0101000020E61000005E2C0C91D3AB5EC0B517D1764CC34640
 13	Raccoon Lodge & Brew Pub	beer	7424 Southwest Beaverton-Hillsdale Highway	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.485839%2C-122.753897	0101000020E61000005CE333D93FB05EC0880FECF82FBE4640
 14	Full Sail Brewing Co: Riverplace	beer	307 Southwest Montgomery Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.50943%2C-122.673862	0101000020E61000001901158E20AB5EC0F7CC920035C14640
@@ -11047,7 +11098,6 @@ COPY homeland_place (id, name, place_type, address, static_map, point) FROM stdi
 20	Bridge Port Ale House	beer	3632 Southeast Hawthorne Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.521983%2C-122.699988	0101000020E6100000EBE5779ACCAC5EC0B308C556D0C24640
 21	BJ'S Restaurant & Brewery	beer	12105 North Center Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.610686%2C-122.680626	0101000020E6100000ABB35A608FAB5EC0021077F52ACE4640
 22	Lucky Labrador Beer Hall	beer	1945 Northwest Quimby Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.533709%2C-122.691651	0101000020E6100000B94F8E0244AC5EC05A4A969350C44640
-23	St John's Theater	beer	8203 North Ivanhoe Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.58865%2C-122.751642	0101000020E610000034130CE71AB05EC02C6519E258CB4640
 24	Widmer Brothers Brewing	beer	929 North Russell Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.540795%2C-122.675595	0101000020E6100000D595CFF23CAB5EC0906B43C538C54640
 25	Max's Brew Pub	beer	12562 Southwest Main Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.428996%2C-122.773695	0101000020E61000000A85083884B15EC0B20E4757E9B64640
 26	Laurelwood Public House-Brewery	beer	5115 Northeast Sandy Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.539919%2C-122.61057	0101000020E6100000CC7A319413A75EC098BED7101CC54640
@@ -11057,10 +11107,9 @@ COPY homeland_place (id, name, place_type, address, static_map, point) FROM stdi
 30	New Old Lompoc	beer	1616 Northwest 23rd Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.534297%2C-122.698466	0101000020E61000008CD7BCAAB3AC5EC0EBAC16D863C44640
 31	Spints Alehouse	beer	401 Northeast 28th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.525858%2C-122.637453	0101000020E61000002CEFAA07CCA85EC0842BA0504FC34640
 32	Ringlers Pub	beer	1332 West Burnside Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.522897%2C-122.684858	0101000020E6100000DB19A6B6D4AB5EC09816F549EEC24640
-33	Lucky Labrador Brew Pub	beer	915 Southeast Hawthorne Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.512214%2C-122.656311	0101000020E61000005340DAFF00AA5EC0D446753A90C14640
-34	O'Brien's	beer	519 Northwest 21st Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.526619%2C-122.694445	0101000020E6100000BAF770C971AC5EC0E2395B4068C34640
-35	O'Malley's Saloon & Grill	beer	6535 Southeast Foster Road	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.489209%2C-122.595149	0101000020E6100000D1CFD4EB16A65EC056F487669EBE4640
-36	Yoga In the Pearl	yoga	925 Northwest Davis Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.524639%2C-122.68056	0101000020E6100000CFBD874B8EAB5EC0639AE95E27C34640
+1	Primal Beginnings	pole	2409 Southeast 49th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.50511%2C-122.612063	0101000020E6100000DE054A0A2CA75EC0F870C971A7C04640
+2	ECDYSIAST a pole dance studio	pole	326 Southeast Madison Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.512922%2C-122.662437	0101000020E610000043AA285E65AA5EC010B3976DA7C14640
+3	Diva Den Studio ~ The Largest Pole Dance Studio in the NW	pole	9220 Southwest Barbur Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.458834%2C-122.708168	0101000020E6100000B804E09F52AD5EC07D259012BBBA4640
 37	Yoga Shala of Portland, N. Williams	yoga	3808 North Williams Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.550343%2C-122.666408	0101000020E6100000BD72BD6DA6AA5EC0904AB1A371C64640
 38	The Movement Center Yoga Studio	yoga	1021 Northeast 33rd Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.53037%2C-122.631374	0101000020E6100000DC627E6E68A85EC0C763062AE3C34640
 39	Bikram's Yoga College of India	yoga	4831 Northeast Fremont Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.548504%2C-122.613063	0101000020E6100000CFD8976C3CA75EC0D3DC0A6135C64640
@@ -11089,10 +11138,8 @@ COPY homeland_place (id, name, place_type, address, static_map, point) FROM stdi
 62	Whole Body Fitness	yoga	1408 East Burnside Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.522741%2C-122.651267	0101000020E6100000B37DC85BAEA95EC0A1A3552DE9C24640
 63	West Coast Fitness	yoga	2640 Northeast Alberta Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.558853%2C-122.638182	0101000020E610000056B950F9D7A85EC0C022BF7E88C74640
 64	Near East Yoga	yoga	707 NE Broadway	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.535091%2C-122.658531	0101000020E6100000BD19355F25AA5EC025B1A4DC7DC44640
-65	The Peoples Yoga	yoga	3016 Northeast Killingsworth Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.562685%2C-122.634722	0101000020E61000004F0306499FA85EC09279E40F06C84640
-66	Root Whole Body	yoga	2526 Northeast 15th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.540937%2C-122.650415	0101000020E6100000FB743C66A0A95EC02219726C3DC54640
-67	Portland Yoga Arts	yoga	4400 Northeast Glisan Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.526175%2C-122.617074	0101000020E6100000904DF2237EA75EC0857CD0B359C34640
-68	Stumptown Coffee Roasters	coffee	128 Southwest 3rd Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.521741%2C-122.673276	0101000020E6100000A14B38F416AB5EC0BDFDB968C8C24640
+34	O'Brien's	beer	519 Northwest 21st Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.526619%2C-122.694445	0101000020E6100000BAF770C971AC5EC0E2395B4068C34640
+35	O'Malley's Saloon & Grill	beer	6535 Southeast Foster Road	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.489209%2C-122.595149	0101000020E6100000D1CFD4EB16A65EC056F487669EBE4640
 69	Rimsky-Korsakoffee House: Open Evenings-Live Classical Music	coffee	707 Southeast 12th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.517775%2C-122.653599	0101000020E6100000B16CE690D4A95EC0DCD7817346C24640
 70	Coffee House Northwest	coffee	1951 West Burnside Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.523247%2C-122.69145	0101000020E61000006E3480B740AC5EC0745DF8C1F9C24640
 71	Anna Bannanas	coffee	1214 Northwest 21st Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.53157%2C-122.694478	0101000020E6100000A872DA5372AC5EC072C45A7C0AC44640
@@ -11121,12 +11168,15 @@ COPY homeland_place (id, name, place_type, address, static_map, point) FROM stdi
 94	Ugly Mug Coffeehouse	coffee	8017 Southeast 13th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.465466%2C-122.653308	0101000020E6100000C58D5BCCCFA95EC031B3CF6394BB4640
 95	Muddy's Coffeehouse	coffee	3560 North Mississippi Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.548754%2C-122.675243	0101000020E610000096766A2E37AB5EC04CC631923DC64640
 96	Starbucks Coffee	coffee	601 Southwest Washington Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.52045%2C-122.677883	0101000020E6100000EBE0606F62AB5EC0029A081B9EC24640
-97	Spring Creek Coffee House	coffee	10600 Southeast McLoughlin Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.445917%2C-122.642484	0101000020E6100000020D36751EA95EC07FDDE9CE13B94640
+65	The Peoples Yoga	yoga	3016 Northeast Killingsworth Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.562685%2C-122.634722	0101000020E61000004F0306499FA85EC09279E40F06C84640
+66	Root Whole Body	yoga	2526 Northeast 15th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.540937%2C-122.650415	0101000020E6100000FB743C66A0A95EC02219726C3DC54640
+67	Portland Yoga Arts	yoga	4400 Northeast Glisan Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.526175%2C-122.617074	0101000020E6100000904DF2237EA75EC0857CD0B359C34640
+127	Taboo Adult Video - SE	strip	237 SE Martin Luther King Jr. Blvd.	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.521237%2C-122.661803	0101000020E61000004359F8FA5AAA5EC08A3BDEE4B7C24640
 98	Kobos Coffee	coffee	2355 Northwest Vaughn Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.537254%2C-122.700294	0101000020E610000071E5EC9DD1AC5EC095D233BDC4C44640
 99	Ladybug Organic Coffee Company	coffee	8438 North Lombard Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.589635%2C-122.753772	0101000020E6100000FE28EACC3DB05EC0DAC9E02879CB4640
+102	Magic Garden Restaurant	strip	217 Northwest 4th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.524815%2C-122.674692	0101000020E6100000DCB75A272EAB5EC0A1B94E232DC34640
 100	Union Jacks Club	strip	938 East Burnside Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.52289%2C-122.655914	0101000020E610000044BFB67EFAA95EC0E5B33C0FEEC24640
 101	Acropolis Club	strip	8325 Southeast McLoughlin Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.46255%2C-122.639034	0101000020E61000000DC2DCEEE5A85EC0E561A1D634BB4640
-102	Magic Garden Restaurant	strip	217 Northwest 4th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.524815%2C-122.674692	0101000020E6100000DCB75A272EAB5EC0A1B94E232DC34640
 103	Cabaret Lounge	strip	503 West Burnside Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.523089%2C-122.675453	0101000020E61000000C3F389F3AAB5EC0DCF29194F4C24640
 104	Devils Point	strip	5305 Southeast Foster Road	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.495351%2C-122.607946	0101000020E6100000FAEE5696E8A65EC03C855CA967BF4640
 105	Dancin' Bare	strip	8440 North Interstate Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.584183%2C-122.68637	0101000020E610000027BD6F7CEDAB5EC089F02F82C6CA4640
@@ -11151,11 +11201,50 @@ COPY homeland_place (id, name, place_type, address, static_map, point) FROM stdi
 124	Frolic's	strip	8845 Northeast Sandy Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.55557%2C-122.571517	0101000020E6100000EA060ABC93A45EC0C251F2EA1CC74640
 125	Doc's Club 82	strip	4229 Southeast 82nd Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.491624%2C-122.579232	0101000020E6100000FD32182312A55EC0E0F60489EDBE4640
 126	Tommy's	strip	3532 Southeast Powell Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.496808%2C-122.627903	0101000020E6100000DC8310902FA85EC01232906797BF4640
-127	Taboo Adult Video - SE	strip	237 SE Martin Luther King Jr. Blvd.	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.521237%2C-122.661803	0101000020E61000004359F8FA5AAA5EC08A3BDEE4B7C24640
 128	Secret Rendezvous	strip	12503 Southeast Division Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.504094%2C-122.534379	0101000020E6100000D42AFA4333A25EC00F0EF62686C04640
-129	Sheena's G-spot NE	strip	3400 Northeast 82nd Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.547303%2C-122.578414	0101000020E61000001B6327BC04A55EC0580053060EC64640
+68	Stumptown Coffee Roasters	coffee	128 Southwest 3rd Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.521741%2C-122.673276	0101000020E6100000A14B38F416AB5EC0BDFDB968C8C24640
+97	Spring Creek Coffee House	coffee	10600 Southeast McLoughlin Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.445917%2C-122.642484	0101000020E6100000020D36751EA95EC07FDDE9CE13B94640
+36	Yoga In the Pearl	yoga	925 Northwest Davis Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.524639%2C-122.68056	0101000020E6100000CFBD874B8EAB5EC0639AE95E27C34640
+4	Deschutes Brewery Portland Public House	beer	210 Northwest 11th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.524615%2C-122.681867	0101000020E61000002F4E7CB5A3AB5EC0DAFE959526C34640
+11	Hopworks Urban Brewery	beer	2944 Southeast Powell Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.495869%2C-122.634875	0101000020E61000001283C0CAA1A85EC0D40CA9A278BF4640
+132	McMenamins St Johns Theater & Pub	beer	8203 North Ivanhoe Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.58865%2C-122.751642	0101000020E610000034130CE71AB05EC02C6519E258CB4640
+33	Lucky Labrador Brew Pub	beer	915 Southeast Hawthorne Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.512214%2C-122.656311	0101000020E61000005340DAFF00AA5EC0D446753A90C14640
+133	Bike Gallery	bikes	1001 Southwest 10th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.517898%2C-122.683621	0101000020E6100000F7764B72C0AB5EC0F8544E7B4AC24640
+134	Waterfront Bicycle & Skate	bikes	10 Southwest Ash Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.521323%2C-122.670872	0101000020E610000056F31C91EFAA5EC089D349B6BAC24640
+135	River City Bicycles	bikes	706 Southeast M L King Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.517523%2C-122.661446	0101000020E61000007B849A2155AA5EC0C2F693313EC24640
+136	Citybikes Workers' Cooperative: Bike & Trailer Sales-Rentals Parts & Accessories	bikes	734 Southeast Ankeny Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.521994%2C-122.657886	0101000020E6100000C39FE1CD1AAA5EC0A75A0BB3D0C24640
+137	Fat Tire Farm	bikes	2714 Northwest Thurman Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.535158%2C-122.707181	0101000020E610000091D6187442AD5EC0AD18AE0E80C44640
+138	Community Cycling Center	bikes	1700 Northeast Alberta Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.558762%2C-122.647473	0101000020E6100000C102983270A95EC0B01F628385C74640
+139	Bike 'n Hike	bikes	400 Southeast Grand Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.519864%2C-122.660377	0101000020E6100000F581E49D43AA5EC0122F4FE78AC24640
+140	REI	bikes	1405 Northwest Johnson Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.529013%2C-122.68624	0101000020E6100000404D2D5BEBAB5EC05514AFB2B6C34640
+141	Clever Cycles	bikes	908 Southeast Hawthorne Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.512215%2C-122.656629	0101000020E6100000BB26A43506AA5EC0A4C2D84290C14640
+142	Bike Gallery	bikes	5329 Northeast Sandy Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.540901%2C-122.608518	0101000020E6100000C0417BF5F1A65EC0D5AF743E3CC54640
+143	Sellwood Cycle Repair	bikes	7639 Southeast Milwaukie Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.469589%2C-122.648481	0101000020E6100000F4C473B680A95EC0DAC70A7E1BBC4640
+144	Veloshop	bikes	211 Southwest 9th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.522658%2C-122.68009	0101000020E61000008C15359886AB5EC0137F1475E6C24640
+145	Bike Central	bikes	220 Southwest 1st Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.520676%2C-122.671945	0101000020E61000007CED992501AB5EC0F3E7DB82A5C24640
+146	Veloce Bicycles	bikes	3202 Southeast Hawthorne Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.511838%2C-122.632405	0101000020E6100000EC34D25279A85EC0CE6C57E883C14640
+147	The Recylery	bikes	1417 Southeast 9th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.512721%2C-122.65703	0101000020E61000006B9F8EC70CAA5EC0787C7BD7A0C14640
+148	Coventry Cycle Works	bikes	2025 Southeast Hawthorne Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.51217%2C-122.645427	0101000020E6100000253D0CAD4EA95EC004FF5BC98EC14640
+149	Cyclepath	bikes	2436 Northeast M L King Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.540217%2C-122.661184	0101000020E6100000DD28B2D650AA5EC022DFA5D425C54640
+150	21st Avenue Bicycles	bikes	916 Northwest 21st Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.529462%2C-122.694323	0101000020E61000001477BCC96FAC5EC0C53C2B69C5C34640
+151	Bike Gallery	bikes	10950 Southeast Division Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.50383%2C-122.550627	0101000020E6100000DB5207793DA35EC0315F5E807DC04640
+152	Citybikes Workers' Cooperative	bikes	1914 Southeast Ankeny Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.522131%2C-122.646094	0101000020E61000001409A69A59A95EC0289D4830D5C24640
+153	Seven Corners Cycle	bikes	3218 Southeast 21st Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.49974%2C-122.644327	0101000020E6100000823B50A73CA95EC06440F67AF7BF4640
+154	Revolver Bicycle Company The	bikes	6509 North Interstate Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.570174%2C-122.682442	0101000020E6100000ADDA3521ADAB5EC0C7832D76FBC84640
 130	Absolute Entertainment Portland Strippers	strip	589 W Burnside	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.523115%2C-122.676306	0101000020E6100000AB05F69848AB5EC00586AC6EF5C24640
 131	Pasionate Dreams	strip	6644 Southeast 82nd Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.47421%2C-122.578716	0101000020E6100000016BD5AE09A55EC0D4B7CCE9B2BC4640
+155	Universal Cycles	bikes	1820 Northwest 18th Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.535996%2C-122.689698	0101000020E61000007787140324AC5EC0B66455849BC44640
+156	Bike Gallery	bikes	4235 Southeast Woodstock Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.4792%2C-122.618771	0101000020E6100000A52DAEF199A75EC0211FF46C56BD4640
+157	North Portland Bike Works	bikes	3951 North Mississippi Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.55164%2C-122.675847	0101000020E61000006286C61341AB5EC02D95B7239CC64640
+158	Bicycle Repair Collective	bikes	4438 Southeast Belmont Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.516364%2C-122.616322	0101000020E61000008A73D4D171A75EC0776A2E3718C24640
+159	En Selle the Road Bike Shop	bikes	6200 Southwest Virginia Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.479084%2C-122.673525	0101000020E610000075029A081BAB5EC0B804E09F52BD4640
+160	Performance Bicycle Shop	bikes	9988 Southeast Washington Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.518327%2C-122.560383	0101000020E6100000008FA850DDA35EC020D1048A58C24640
+161	A Better Cycle	bikes	2324 Southeast Division Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.504596%2C-122.641976	0101000020E61000004834812216A95EC0A1D80A9A96C04640
+162	Pedal Bike Tours	bikes	2249 North Williams Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.539235%2C-122.667052	0101000020E6100000CF2EDFFAB0AA5EC0E5ED08A705C54640
+163	Cascade Cycling LLC	bikes	122 North Killingsworth Street	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.562525%2C-122.668454	0101000020E6100000583849F3C7AA5EC05917B7D100C84640
+164	Sunset Cycles	bikes	15320 Northwest Central Drive	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.554388%2C-122.835195	0101000020E610000018B2BAD573B55EC0BEA59C2FF6C64640
+165	Taboo Adult Video - SE	strip	237 Southeast Martin Luther King Junior Boulevard	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.521236%2C-122.661826	0101000020E61000001F69705B5BAA5EC0BABF7ADCB7C24640
+129	Sheena's G-spot NE	strip	3400 Northeast 82nd Avenue	http://maps.google.com/maps/api/staticmap?maptype=roadmap&format=gif&sensor=false&size=150x100&zoom=13&markers=45.547303%2C-122.578414	0101000020E61000001B6327BC04A55EC0580053060EC64640
 \.
 
 
@@ -14919,6 +15008,14 @@ COPY spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
 
 
 --
+-- Data for Name: transit_transitstop; Type: TABLE DATA; Schema: public; Owner: homeland
+--
+
+COPY transit_transitstop (id, stop_id, stop_name, stop_desc, zone_id, point) FROM stdin;
+\.
+
+
+--
 -- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: homeland; Tablespace: 
 --
 
@@ -15095,6 +15192,14 @@ ALTER TABLE ONLY spatial_ref_sys
 
 
 --
+-- Name: transit_transitstop_pkey; Type: CONSTRAINT; Schema: public; Owner: homeland; Tablespace: 
+--
+
+ALTER TABLE ONLY transit_transitstop
+    ADD CONSTRAINT transit_transitstop_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: auth_message_user_id; Type: INDEX; Schema: public; Owner: homeland; Tablespace: 
 --
 
@@ -15134,6 +15239,13 @@ CREATE INDEX homeland_neighborhood_poly_id ON homeland_neighborhood USING gist (
 --
 
 CREATE INDEX homeland_place_point_id ON homeland_place USING gist (point);
+
+
+--
+-- Name: transit_transitstop_point_id; Type: INDEX; Schema: public; Owner: homeland; Tablespace: 
+--
+
+CREATE INDEX transit_transitstop_point_id ON transit_transitstop USING gist (point);
 
 
 --

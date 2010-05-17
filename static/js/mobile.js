@@ -60,6 +60,7 @@ if (neighborhood == "unknown") {
 			      $('#bike_link').attr('href', '/local/bikes?coords=' + coords);
 			      $('#strip_link').attr('href', '/local/strip?coords=' + coords);
 			      $('#pole_link').attr('href', '/local/pole?coords=' + coords);
+			      $('#transit_link').attr('href', '/transit/stops?coords=' + coords);
 
 			      $('#wikilink').text('Wikipedia Entry for ' + data.name);
 			      $('#neighborhood_link').text(data.name + ' Information');

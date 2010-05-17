@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import *
 import settings
 from homeland import views
+from transit import views as transit_views
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib.gis import admin
@@ -11,6 +12,8 @@ urlpatterns = patterns('',
 #                       (r'^$', views.browse_neighborhoods),
 #                       (r'^neighborhood$', views.get_neighborhood),
                        (r'^lookup$', views.lookup),
+                       (r'^transit/stops$', transit_views.get_nearby_stops),
+                       (r'^transit/stop/(?P<stop_id>.*)$', transit_views.get_stop),
                        (r'^local/(?P<place_type>.*)$', views.local_search),
                        (r'^$', views.mobile),
 
