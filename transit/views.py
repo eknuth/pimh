@@ -21,7 +21,8 @@ def get_nearby_stops(request):
             (lat,lon) = form.cleaned_data['coords'].split(',')
             
     elif request.GET.get('neighborhood', ''):
-        pass
+        if form.is_valid():
+            (lat,lon) = form.cleaned_data['coords']
     search_point = Point(float(lat),float(lon))
     stops = BusStop.objects.distance(search_point).filter(geom__distance_lte=(search_point, distance(mi=.5))).order_by('distance')
     routes={}
