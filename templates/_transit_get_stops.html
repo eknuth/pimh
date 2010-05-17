@@ -1,15 +1,15 @@
 
 
-<div id="transit">
+<div id="transit_nearby">
   <div class="toolbar">
     <h1 class="neighborhood_title">Transit</h1>
-    <a class="back" href="#transit">pimh</a>
+    <a class="back" href="#neighborhood">pimh</a>
   </div>
   
 <ul class="metal">
 {% for stop in stops %}
   <li>
-    <a href="/transit/stop/{{ stop.loc_id }}">{{ stop.route }}: {{ stop.dir_desc }}
+    <a href="/transit/stop/{{ stop.loc_id }}/{{ stop.route }}">{{ stop.route }}: {{ stop.dir_desc }}
       <em>{{ stop.location }}</em>
       <small class="counter">({{stop.distance.mi|floatformat }} m)</small></a>
   </li>

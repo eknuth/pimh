@@ -39,7 +39,7 @@ def get_nearby_stops(request):
                 'form': form,
                 })
 
-def get_stop(request, stop_id):
+def get_stop(request, stop_id, route_id):
     stop = TransitStop.objects.get(stop_id=stop_id)
 
     query_args = urllib.urlencode({ 'locIDs': stop.stop_id })
@@ -49,16 +49,24 @@ def get_stop(request, stop_id):
 
     arrivals=[]
     for arrival in arrival_data:
-        try:
+        minutes_until_arrival=0
+        if (int(arrival.get('route')) == int(route_id)):
+            try:
+                t=float(arrival.get('estimated'))/1000
+                arrival_time = time.strftime("%H:%M %p", time.localtime(t))
+                minutes_until_arrival = int((float(t) - time.mktime(time.localtime())) / 60)
+
+            except:
+                t=float(arrival.get('scheduled'))/1000
+                arrival_time = time.strftime("%H:%M %p", time.localtime(t))
+                minutes_until_arrival = int((float(t) - time.mktime(time.localtime())) / 60)
+
             arrivals.append({'route': arrival.get('route'), 
                              'sign': arrival.get('fullSign'),
-                             'arrival_time': 
-                             time.strftime("%H:%M %p", time.localtime(float(arrival.get('estimated'))/1000))})
-        except:
-            arrivals.append({'route': arrival.get('route'), 
-                             'sign': arrival.get('fullSign'),
-                             'arrival_time': time.strftime("%H:%M %p", 
-                                                           time.localtime(float(arrival.get('scheduled'))/1000))})
+                             'arrival_time': arrival_time,
+                             'minutes_until_arrival': minutes_until_arrival
+                             })
+                               
 
     return render_to_response('_transit_stop.html', {
             'stop': stop,
