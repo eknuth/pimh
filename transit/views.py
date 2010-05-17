@@ -20,9 +20,15 @@ def get_nearby_stops(request):
         if form.is_valid():
             (lat,lon) = form.cleaned_data['coords'].split(',')
             search_point = Point(float(lat),float(lon))
-            stops = BusStop.objects.distance(search_point).filter(geom__distance_lte=(search_point, distance(mi=1))).order_by('distance')
+            stops = BusStop.objects.distance(search_point).filter(geom__distance_lte=(search_point, distance(mi=.5))).order_by('distance')
+            routes={}
+            nearby_stops=[]
+            for stop in stops:
+                if not routes.has_key("%s_%s" % (stop.route, stop.dir)):
+                    routes["%s_%s" % (stop.route, stop.dir)]=True
+                    nearby_stops.append(stop)
             return render_to_response('_transit_get_stops.html', {
-                    'stops': stops
+                    'stops': nearby_stops
                 })
 
     else:
@@ -41,10 +47,16 @@ def get_stop(request, stop_id):
 
     arrivals=[]
     for arrival in arrival_data:
-        arrivals.append({'route': arrival.get('route'), 
-                         'sign': arrival.get('fullSign'),
-                         'scheduled': time.strftime("%H:%M %p", time.localtime(float(arrival.get('scheduled'))/1000)),
-                         'estimated': time.strftime("%H:%M %p", time.localtime(float(arrival.get('estimated'))/1000))})
+        try:
+            arrivals.append({'route': arrival.get('route'), 
+                             'sign': arrival.get('fullSign'),
+                             'arrival_time': 
+                             time.strftime("%H:%M %p", time.localtime(float(arrival.get('estimated'))/1000))})
+        except:
+            arrivals.append({'route': arrival.get('route'), 
+                             'sign': arrival.get('fullSign'),
+                             'arrival_time': time.strftime("%H:%M %p", 
+                                                           time.localtime(float(arrival.get('scheduled'))/1000))})
 
     return render_to_response('_transit_stop.html', {
             'stop': stop,

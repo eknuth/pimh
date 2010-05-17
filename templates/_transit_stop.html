@@ -6,11 +6,10 @@
     <a class="back" href="#neighborhood">pimh</a>
   </div>
   
-<ul class="edgetoedge">
-  <li class="sep">F</li>
+<ul class="metal">
 {% for arrival in arrivals %}
-<li class="arrow">
-  <a href="/transit/stop/">{{ arrival.sign }}, {{ arrival.estimated }}</a>
+<li>
+  <a href="/transit/stop/">{{ arrival.sign }}, {{ arrival.arrival_time }}</a>
 </li>
 {% endfor %}
 </ul>

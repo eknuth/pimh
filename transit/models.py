@@ -20,7 +20,7 @@ class BusStop(models.Model):
     keyitem = models.CharField(max_length=4)
     rte = models.CharField(max_length=3)
     dir = models.FloatField()
-    loc_id = models.FloatField()
+    loc_id = models.IntegerField()
     location = models.CharField(max_length=40)
     jurisdic = models.CharField(max_length=14)
     zip = models.FloatField()
