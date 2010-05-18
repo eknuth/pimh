@@ -31,7 +31,10 @@ function get_location() {
 		});
 	}
 	else {
-	    neighborhood="NA"
+	    neighborhood="NA";
+	    $('#status').hide();
+	    $('#results').text("Geolocation Unvailable");
+	    
 	}
     }
 }
@@ -51,7 +54,16 @@ $.jQTouch({
 $(function(){
 	// Show a swipe event on swipe test
 	get_location();
+	if (neighborhood == "NA") {
 
+	    $('#yoga_link').attr('href', '#browse_by_quad');
+	    $('#coffee_link').attr('href', '#browse_by_quad');
+	    $('#beer_link').attr('href', '#browse_by_quad');
+	    $('#bike_link').attr('href', '#browse_by_quad');
+	    $('#strip_link').attr('href', '#browse_by_quad');
+	    $('#pole_link').attr('href', '#browse_by_quad');
+	    $('#transit_link').attr('href', '#browse_by_quad');
+		};
 	$('#home').
 	    bind('pageAnimationEnd', function(e, info){
 		    //	    alert(neighborhood.slug)
