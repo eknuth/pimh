@@ -39,13 +39,14 @@ def dissolve_neighborhoods(all_n):
         all_polygons.append(n.poly)
     return MultiPolygon(all_polygons)
 
-def mobile(request):
+def browse(request, flag=False):
     if request.META.get("HTTP_HOST", '').endswith("pimh.info"):
         api_key=pimh_gmaps_api_key
     else:
         api_key = portlandismyhomeland_gmaps_api_key
 
     return render_to_response('mobile.html', {'google_api_key': api_key,
+                                              'home_template': "_home.html",
                                               'referer': request.META.get("HTTP_HOST", '') })
 
 
