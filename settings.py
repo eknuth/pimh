@@ -4,7 +4,10 @@ from os import path
 
 PROJECT_PATH = path.realpath(path.dirname(__file__))
 
-
+pimh_gmaps_api_key="ABQIAAAAkUlmIW1X-La8Y_JDbMsIaBRR1j-rEcJXdOU7dBo3yykxH08DuBR2MwDjASoOuLRduHmnevD97SAKWQ"
+portlandismyhomeland_gmaps_api_key="ABQIAAAAkUlmIW1X-La8Y_JDbMsIaBQdkgRPlMVKT1vD1nTRJCRPuPWGKxT4RPVCd15nQW5msLk-f0ljd7C1Eg"
+#api_key="ABQIAAAAkUlmIW1X-La8Y_JDbMsIaBQdkgRPlMVKT1vD1nTRJCRPuPWGKxT4RPVCd15nQW5msLk-f0ljd7C1Eg"
+yelp_api_key='TyYPaW3bfrfJC4v0RIsiaQ'
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

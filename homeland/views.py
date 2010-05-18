@@ -7,12 +7,11 @@ from django.contrib.gis.measure import D as distance
 import simplejson
 import urllib2,urllib
 
+from settings import pimh_gmaps_api_key, portlandismyhomeland_gmaps_api_key, yelp_api_key
+from settings import pimh_gmaps_api_key as api_key
 from models import Neighborhood, Place
 from forms import AddressForm, SearchForm
 
-
-api_key='ABQIAAAAkUlmIW1X-La8Y_JDbMsIaBQdkgRPlMVKT1vD1nTRJCRPuPWGKxT4RPVCd15nQW5msLk-f0ljd7C1Eg'
-yelp_api_key='TyYPaW3bfrfJC4v0RIsiaQ'
 def get_neighborhood_by_point(point):
     """
     Get Neighborhood by Point
@@ -27,7 +26,7 @@ def get_neighborhood_by_address(address):
     >>> get_neighborhood_by_address('2728 SE 52nd Ave, Portland, OR')
     'South Tabor'
     """
-    g = geocoders.Google(api_key)
+    g = geocoders.Google(pimh_gmaps_api_key)
     place, (lat, lon) = g.geocode(address)
     return get_neighborhood_by_point(Point(lon,lat))
 
@@ -41,7 +40,13 @@ def dissolve_neighborhoods(all_n):
     return MultiPolygon(all_polygons)
 
 def mobile(request):
-    return render_to_response('mobile.html', {})
+    if request.META.get("HTTP_HOST", '').endswith("pimh.info"):
+        api_key=pimh_gmaps_api_key
+    else:
+        api_key = portlandismyhomeland_gmaps_api_key
+
+    return render_to_response('mobile.html', {'google_api_key': api_key,
+                                              'referer': request.META.get("HTTP_HOST", '') })
 
 
 def browse_by_quad(request, quad):
