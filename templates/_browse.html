@@ -1,0 +1,13 @@
+
+<div id="browse_by_neighborhood">
+  <div class="toolbar">
+    <h1 class="neighborhood_title">Browse by Quadrant</h1>
+    <a class="back" href="#neighborhood">pimh</a>
+  </div>
+  {{ quad }}
+  <ul class="plastic">
+    {% for n in all_n %}
+    <li class="arrow"><a href="/browse_by_neighborhood/{{ n.slug }}" id="neighborhood_link">{{ n.name }}</a></li>
+    {% endfor %}
+  </ul>
+</div>

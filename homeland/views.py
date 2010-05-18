@@ -49,11 +49,11 @@ def mobile(request):
                                               'referer': request.META.get("HTTP_HOST", '') })
 
 
-def browse_by_quad(request, quad):
-    all_n = Neighborhood.objects.filter(quad=quad)
+def neighborhoods_by_quad(request, quad):
+    all_n = Neighborhood.objects.filter(quad=quad).order_by('name')
     
     return render_to_response('_browse.html', {
-            'n': all_n,
+            'all_n': all_n,
             })
 
 
@@ -114,9 +114,8 @@ def map_neighborhood(request, neighborhood_slug):
 
 def neighborhood(request, neighborhood_slug):
     n = Neighborhood.objects.get(slug=neighborhood_slug)
-    return render_to_response('_neighborhood.html', {
-            'wiki': n.wiki,
-            'name': n.name.title()
+    return render_to_response('_home.html', {
+            'n': n,
             })
 
 def local_search(request, place_type):

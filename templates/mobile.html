@@ -17,57 +17,27 @@
     </head>
 
   <body>
-    <div id="home">
-      <div class="toolbar">
-	<h1 id="neighborhood_title">Neighborhood</h1>
-      </div>
-      <div class="info">
-	<center><div id="results">Finding Your Current Neighborhood...</div></center>
-	<center><div id="status"><img src="/static/img/ajax-loader.gif"></div></center>
-      </div>
-      <ul class="plastic">
-	<li class="arrow"><a href="#" id="beer_link">Beer</a></li>
-     	<li class="arrow"><a href="#" id="bike_link">Bikes</a></li>
-     	<li class="arrow"><a href="#" id="coffee_link">Coffee</a></li>
-     	<li class="arrow"><a href="#" id="pole_link">Pole Dancing Studios</a></li>
-	<li class="arrow"><a href="#" id="transit_link">Transit</a></li>
-	<li class="arrow"><a href="#" id="yoga_link">Yoga</a></li>
-	<li class="arrow"><a href="#map">View Map</a></li>
-	<li class="arrow"><a href="#neighborhood" id="neighborhood_link">Neighborhood</a></li>
-      </ul>
-      
-    </div>
+{% include "_home.html" %}
     
-    <div id="neighborhood">
-      <div class="toolbar">
-	<h1 id="neighborhood_title">Neighborhood</h1>
-        <a class="back" href="#home">pimh</a>
-      </div>
-      
-      <ul class="plastic">
-     	
-     	<li class="arrow"><a href="#" id="beer_link">Beer</a></li>
-     	<li class="arrow"><a href="#" id="bike_link">Bikes</a></li>
-     	<li class="arrow"><a href="#" id="coffee_link">Coffee</a></li>
-     	<li class="arrow"><a href="#" id="pole_link">Pole Dancing Studios</a></li>
-	<li class="arrow"><a href="#" id="transit_link">Transit</a></li>
-	<li class="arrow"><a href="#" id="yoga_link">Yoga</a></li>
-	<li class="arrow"><a href="#map">View Map</a></li>
-      </ul>
-
-      <ul class="plastic">
-	<li class="forward">
-	  <a href="#" target="_blank" id="wikilink">Wikipedia Page</a>
-	</li>
-      </ul>
-    </div>
     
     <div id="map">
       <div id="mapwrapper" class="draggable">
 	<div id="map_canvas" style="width: 100%; height: 415px" class="draggable"></div>
       </div>
     </div>
-    
+    <div id="browse_by_quad">
+      <div class="toolbar">
+	<h1 id="neighborhood_title">Neighborhood</h1>
+        <a class="back" href="#home">pimh</a>
+      </div>
+      <ul class="plastic">
+     	<li class="arrow"><a href="/quad/SE">SE</a></li>
+    	<li class="arrow"><a href="/quad/NE">NE</a></li>
+    	<li class="arrow"><a href="/quad/SW">SW</a></li>
+    	<li class="arrow"><a href="/quad/NW">NW</a></li>
+    	<li class="arrow"><a href="/quad/N">N</a></li>
+      </ul>
+    </div>
 </body>
   
 </html>
