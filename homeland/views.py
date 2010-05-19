@@ -55,6 +55,7 @@ def neighborhoods_by_quad(request, quad):
     
     return render_to_response('_browse.html', {
             'all_n': all_n,
+            'quad': quad,
             })
 
 
@@ -117,6 +118,7 @@ def neighborhood(request, neighborhood_slug):
     n = Neighborhood.objects.get(slug=neighborhood_slug)
     return render_to_response('_home.html', {
             'n': n,
+            'quad': n.quad,
             })
 
 def local_search(request, place_type):

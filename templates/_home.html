@@ -1,10 +1,16 @@
-<div id="home" class="current">
+<div id="neighborhood_{{ n.slug }}" class="current">
   <div class="toolbar">
-    <h1 id="neighborhood_title">{{ n.name }}</h1>
+
+{% if name %}
+    <h1 id="neighborhood_title">Determining Location{{ n.name }}</h1>
+{% else %}
+  <h1 id="neighborhood_title">{{ n.name }}</h1>
+{% endif %}
+{% if quad %}
+    <a class="back" href="#browse_by_quad_{{ quad }}">{{ quad }}</a>
+{% endif %}
   </div>
   <div class="info">
-    <center><div id="results">Finding Your Current Neighborhood...</div></center>
-    <center><div id="status"><img src="/static/img/ajax-loader.gif"></div></center>
   </div>
   <ul class="plastic">
     <li class="arrow"><a href="/local/beer?coords={{ n.poly.centroid.x }}%2C{{ n.poly.centroid.y }}" id="beer_link">Beer</a></li>

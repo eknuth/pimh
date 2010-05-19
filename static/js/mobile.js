@@ -55,7 +55,8 @@ $(function(){
 	// Show a swipe event on swipe test
 	get_location();
 	if (neighborhood == "NA") {
-
+	    $('#status').hide();
+	    $('#results').text("Geolocation Unvailable");
 	    $('#yoga_link').attr('href', '#browse_by_quad');
 	    $('#coffee_link').attr('href', '#browse_by_quad');
 	    $('#beer_link').attr('href', '#browse_by_quad');
