@@ -14,7 +14,7 @@ function get_location() {
 
 	if (navigator.geolocation) {  
 	    $('#results').text("Getting Location...");
-	    $('#status').show()
+	    $('#status').html('<img src="/static/img/ajax-loader.gif">')
 	    navigator.geolocation.getCurrentPosition(function(position) {  
 		    var coords = position.coords.longitude + '%2C' + position.coords.latitude;
 		    $.getJSON('/lookup?coords=' + coords,
