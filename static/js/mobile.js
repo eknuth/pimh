@@ -3,14 +3,25 @@ var neighborhood = "unknown";
 function get_location() {
 
     if (neighborhood == "unknown") {
+	$('#results').text("Geolocation Unvailable");
+	$('#yoga_link').attr('href', '#browse_by_quad');
+	$('#coffee_link').attr('href', '#browse_by_quad');
+	$('#beer_link').attr('href', '#browse_by_quad');
+	$('#bike_link').attr('href', '#browse_by_quad');
+	$('#strip_link').attr('href', '#browse_by_quad');
+	$('#pole_link').attr('href', '#browse_by_quad');
+	$('#transit_link').attr('href', '#browse_by_quad');
+
 	if (navigator.geolocation) {  
+	    $('#results').text("Getting Location...");
+	    $('#status').show()
 	    navigator.geolocation.getCurrentPosition(function(position) {  
 		    var coords = position.coords.longitude + '%2C' + position.coords.latitude;
 		    $.getJSON('/lookup?coords=' + coords,
 			      function(data) {
 				  neighborhood = data;
 				  neighborhood_slug = data.slug;
-				  $('#results').html('You are in ' + data.name);
+			
 				  
 				  var wiki_url='http://en.m.wikipedia.org/wiki/' + data.wiki;
 				  $('#wikilink').attr('href', wiki_url);
