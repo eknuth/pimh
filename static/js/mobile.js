@@ -7,6 +7,8 @@ function get_location() {
 	$('#yoga_link').attr('href', '#browse_by_quad');
 	$('#coffee_link').attr('href', '#browse_by_quad');
 	$('#beer_link').attr('href', '#browse_by_quad');
+	$('#tattoo_link').attr('href', '#browse_by_quad');
+	$('#meditate_link').attr('href', '#browse_by_quad');
 	$('#bike_link').attr('href', '#browse_by_quad');
 	$('#strip_link').attr('href', '#browse_by_quad');
 	$('#pole_link').attr('href', '#browse_by_quad');
@@ -28,6 +30,8 @@ function get_location() {
 				  $('#yoga_link').attr('href', '/local/yoga?coords=' + coords);
 				  $('#coffee_link').attr('href', '/local/coffee?coords=' + coords);
 				  $('#beer_link').attr('href', '/local/beer?coords=' + coords);
+				  $('#tattoo_link').attr('href', '/local/tattoo?coords=' + coords);
+				  $('#meditate_link').attr('href', '/local/meditate?coords=' + coords);
 				  $('#bike_link').attr('href', '/local/bikes?coords=' + coords);
 				  $('#strip_link').attr('href', '/local/strip?coords=' + coords);
 				  $('#pole_link').attr('href', '/local/pole?coords=' + coords);
@@ -70,7 +74,9 @@ $(function(){
 	    $('#results').text("Geolocation Unvailable");
 	    $('#yoga_link').attr('href', '#browse_by_quad');
 	    $('#coffee_link').attr('href', '#browse_by_quad');
+	    $('#tattoo_link').attr('href', '#browse_by_quad');
 	    $('#beer_link').attr('href', '#browse_by_quad');
+	    $('#meditate_link').attr('href', '#browse_by_quad');
 	    $('#bike_link').attr('href', '#browse_by_quad');
 	    $('#strip_link').attr('href', '#browse_by_quad');
 	    $('#pole_link').attr('href', '#browse_by_quad');
