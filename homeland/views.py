@@ -9,7 +9,7 @@ import urllib2,urllib
 
 from settings import pimh_gmaps_api_key, portlandismyhomeland_gmaps_api_key, yelp_api_key
 from settings import pimh_gmaps_api_key as api_key
-from models import Neighborhood, Place
+from models import Neighborhood, Place, Request
 from forms import AddressForm, SearchForm
 
 def get_neighborhood_by_point(point):
@@ -75,7 +75,10 @@ def lookup(request):
         form = SearchForm(request.GET)
         if form.is_valid():
             (lat,lon) = form.cleaned_data['coords'].split(',')
-            n = get_neighborhood_by_point(Point(float(lat),float(lon)))
+            pnt=Point(float(lat),float(lon))
+            n = get_neighborhood_by_point(pnt)
+            r = Request(point=pnt, place_type="neighborhood")
+            r.save()
             search_response = {'name': n.name.title(), 'polygon': n.gpoly(), 
                                'slug': n.slug, 'wiki': n.wiki,
                                'centroid_x': "%.5f" % n.poly.centroid.x,
@@ -127,6 +130,8 @@ def local_search(request, place_type):
         if form.is_valid():
             (lat,lon) = form.cleaned_data['coords'].split(',')
             search_point = Point(float(lat),float(lon))
+            r = Request(point=search_point, place_type=place_type)
+            r.save()
             places = Place.objects.distance(search_point).filter(place_type=place_type).filter(point__distance_lte=(search_point, distance(mi=2))).order_by('distance')
             return render_to_response('_local_search.html', {
                     'title': place_type,
@@ -144,3 +149,10 @@ def place(request, place_id):
     return render_to_response('_place.html', {
             'place': p,
             })
+
+def request_kml(request):
+    all_r = Request.objects.all()
+    return render_to_response('base.kml', {
+            'points': all_r,
+            },  mimetype="application/vnd.google-earth.kml+xml")
+

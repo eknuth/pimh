@@ -36,3 +36,11 @@ class Neighborhood(models.Model):
     def save(self, *args, **kwargs):
         self.slug = self._get_slug()
         super(Neighborhood, self).save(*args, **kwargs)
+
+class Request(models.Model):
+    place_type = models.CharField(max_length=40)
+    ts = models.DateTimeField(auto_now=True)
+    user_agent =  models.CharField(max_length=200)
+    point = models.PointField(srid=4326)#, geography=True) 
+    objects = models.GeoManager()
+
