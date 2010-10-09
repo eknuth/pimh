@@ -156,3 +156,9 @@ def request_kml(request):
             'points': all_r,
             },  mimetype="application/vnd.google-earth.kml+xml")
 
+def map(request, place_type):
+    points = Place.objects.filter(place_type=place_type)
+    return render_to_response('map.html', {
+            'points': points
+            })
+
