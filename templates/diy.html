@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+    <head> 
+        <title>Draw Feature Example</title> 
+        
+
+        <link rel="stylesheet" href="/static/stylesheets/style.css" type="text/css" /> 
+        <style type="text/css"> 
+            #controlToggle li {
+                list-style: none;
+            }
+            p {
+                width: 300px;
+            }
+ 
+            /* avoid pink tiles */
+            .olImageLoadError {
+                background-color: transparent !important;
+            }
+        </style> 
+        <script src="http://openlayers.org/api/OpenLayers.js"></script> 
+        <script src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+
+        <script type="text/javascript"> 
+            var map, drawControls;
+            function init(){
+                map = new OpenLayers.Map('map');
+ 
+	        var gmap = new OpenLayers.Layer.Google("Google Streets", 
+	                                 {sphericalMercator: false});
+
+
+                var polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer");
+ 
+                map.addLayers([gmap, polygonLayer]);
+
+ 
+              drawControls = {
+                     polygon: new OpenLayers.Control.DrawFeature(polygonLayer,
+                                OpenLayers.Handler.Polygon)
+                };
+
+                for(var key in drawControls) {
+                    map.addControl(drawControls[key]);
+                }
+
+                map.setCenter(new OpenLayers.LonLat(-122.65, 45.53), 11);
+	    
+                document.getElementById('noneToggle').checked = true;
+            }
+
+
+            function toggleControl(element) {
+                for(key in drawControls) {
+                    var control = drawControls[key];
+                    if(element.value == key && element.checked) {
+                        control.activate();
+                    } else {
+                        control.deactivate();
+                    }
+                }
+            }
+        </script> 
+    </head> 
+    <body onload="init()"> 
+	<img src="/static/pimh-logo.png">
+ 
+        <div id="map" class="smallmap"></div> 
+    
+        <ul id="controlToggle">
+	  <a href="void();" value="polygon" onclick="toggleControl(this);">Draw Polygon</a>
+            <li> 
+                <input type="radio" name="type" value="none" id="noneToggle"
+                       onclick="toggleControl(this);" checked="checked" /> 
+                <label for="noneToggle">navigate</label> 
+            </li> 
+            <li> 
+                <input type="radio" name="type" value="polygon" id="polygonToggle" onclick="toggleControl(this);" /> 
+                <label for="polygonToggle">draw polygon</label> 
+            </li> 
+        </ul> 
+ 
+      
+    </body> 
+</html> 
