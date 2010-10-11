@@ -93,4 +93,5 @@ INSTALLED_APPS = (
     'django.contrib.gis',
     'homeland',
     'transit',
+	'diy',
 )
