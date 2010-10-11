@@ -19,9 +19,11 @@
         </style> 
         <script src="http://openlayers.org/api/OpenLayers.js"></script> 
         <script src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+	<script type="text/javascript"
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 
         <script type="text/javascript"> 
-            var map, drawControls;
+            var map, drawControls, polygonLayer;
             function init(){
                 map = new OpenLayers.Map('map');
  
@@ -29,7 +31,7 @@
 	                                 {sphericalMercator: false});
 
 
-                var polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer");
+                polygonLayer = new OpenLayers.Layer.Vector("Polygon Layer");
  
                 map.addLayers([gmap, polygonLayer]);
 
@@ -48,7 +50,16 @@
                 document.getElementById('noneToggle').checked = true;
             }
 
-
+	    function save(form) {
+	        var neighb_name = form.neighb_name.value;
+	        var neighb_poly = polygonLayer.features[0].geometry.getVertices();
+	        $.post('diy/create',  {name: form.neighb_name.value, poly: String(neighb_poly) },
+	          function(data) {
+	             $('.result').html("test");
+	          });
+//	        alert(neighb_name, polygonLayer.features[0].geometry.getVertices());
+	    
+	    }
             function toggleControl(element) {
                 for(key in drawControls) {
                     var control = drawControls[key];
@@ -65,7 +76,13 @@
 	<img src="/static/pimh-logo.png">
  
         <div id="map" class="smallmap"></div> 
-    
+	<form name="diy_neighb" action="" method="post">
+	<input type=text name="neighb_name" value="name">
+
+       <INPUT TYPE="button" NAME="button" Value="Click" onClick="save(this.form)">
+
+	</form>
+	<div id="result"></div>
         <ul id="controlToggle">
 	  <a href="void();" value="polygon" onclick="toggleControl(this);">Draw Polygon</a>
             <li> 
