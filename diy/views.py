@@ -9,12 +9,26 @@ def index(request):
 
 def create(request):
     message=""
+    
     if request.method == 'POST':
-        n = DIY_Neighborhood(name=request.POST['name'], poly=Polygon(fromstr(poly=request.POST['poly'])))
+        points=[]
+        for point in request.POST['poly'].split(','):
+            points.append(fromstr(point))
+        points.append(points[0])
+        n = DIY_Neighborhood(poly = Polygon(points), name = request.POST['name'], quad='', wiki='')
         n.save()
-        print request.POST
         message = "This is an XHR POST request"
-    return HttpResponse(message)
+        return HttpResponse(message)        
+
+
+#            print lng
+            
+#        n = DIY_Neighborhood.create_from_String(name=request.POST['name'], 
+#                                                poly=Polygon(fromstr(poly=request.POST['poly'])))
+        
+#        n.save()
+#        print request.POST
+
 
 
 

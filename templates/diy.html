@@ -52,8 +52,9 @@
 
 	    function save(form) {
 	        var neighb_name = form.neighb_name.value;
-	        var neighb_poly = polygonLayer.features[0].geometry.getVertices();
-	        $.post('diy/create',  {name: form.neighb_name.value, poly: String(neighb_poly) },
+	    //    var neighb_poly = polygonLayer.features[0].geometry.getVertices();
+	    var neighb_poly='POINT(-122.65205993652 45.53),POINT(-122.65205993652 45.525193481445),POINT(-122.63008728027 45.525880126953),POINT(-122.62940063477 45.55815246582)';
+            $.post('diy/create',  {name: form.neighb_name.value, poly: String(neighb_poly) },
 	          function(data) {
 	             $('.result').html("test");
 	          });
