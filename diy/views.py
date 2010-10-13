@@ -1,11 +1,16 @@
-from models import DIY_Neighborhood
+from diy.models import DIY_Neighborhood
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.contrib.gis.geos import fromstr
 from django.contrib.gis.geos import Point, Polygon
 
 def index(request):
-    return render_to_response('diy.html', {})
+    all_n = DIY_Neighborhood.objects.all()
+    print all_n
+    return render_to_response('diy.html', {'all_n': all_n})
+
+def edit(request):
+    return render_to_response('diy_edit.html', {})
 
 def create(request):
     message=""
@@ -20,14 +25,10 @@ def create(request):
         message = "This is an XHR POST request"
         return HttpResponse(message)        
 
-
-#            print lng
-            
-#        n = DIY_Neighborhood.create_from_String(name=request.POST['name'], 
-#                                                poly=Polygon(fromstr(poly=request.POST['poly'])))
-        
-#        n.save()
-#        print request.POST
+def kml(request):
+    all_n = DIY_Neighborhood.objects.all()
+    return render_to_response('base.kml', {'all_n': all_n},
+            mimetype="application/vnd.google-earth.kml+xml")
 
 
 

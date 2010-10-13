@@ -48,7 +48,30 @@
                 map.setCenter(new OpenLayers.LonLat(-122.65, 45.53), 11);
 	    
                 document.getElementById('noneToggle').checked = true;
-            }
+
+            var featurecollection = {
+              "type": "FeatureCollection", 
+              "features": [
+                {"geometry": {
+                    "type": "GeometryCollection", 
+                    "geometries": [
+					{% for n in all_n %}
+      					{% autoescape off %}
+                        	{{ n.poly.geojson }},
+						{% endautoescape %}
+					{% endfor %}
+                    ]
+                }, 
+                "type": "Feature", 
+                "properties": {}}
+              ]
+           };
+           var geojson_format = new OpenLayers.Format.GeoJSON();
+           var vector_layer = new OpenLayers.Layer.Vector(); 
+           map.addLayer(vector_layer);
+           vector_layer.addFeatures(geojson_format.read(featurecollection));
+ 
+            }// end init
 
 	    function save(form) {
 	        var neighb_name = form.neighb_name.value;
