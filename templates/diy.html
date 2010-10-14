@@ -22,7 +22,14 @@
 	<script type="text/javascript"
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 
-        <script type="text/javascript"> 
+        <script type="text/javascript">
+
+	  $(document).ready(function() {
+	  $("a").click(function() {
+	  alert(this);
+	  });
+	  });
+	  
             var map, drawControls, polygonLayer;
             function init(){
                 map = new OpenLayers.Map('map');
@@ -49,23 +56,20 @@
 	    
                 document.getElementById('noneToggle').checked = true;
 
-            var featurecollection = {
-              "type": "FeatureCollection", 
-              "features": [
-                {"geometry": {
-                    "type": "GeometryCollection", 
-                    "geometries": [
-					{% for n in all_n %}
-      					{% autoescape off %}
-                        	{{ n.poly.geojson }},
-						{% endautoescape %}
-					{% endfor %}
-                    ]
-                }, 
-                "type": "Feature", 
-                "properties": {}}
-              ]
-           };
+
+	  var featurecollection = { 
+	  "type": "FeatureCollection",
+	        "features": [
+	        {% for n in all_n %}
+	  { "type": "Feature",
+	       "geometry":  {% autoescape off %}{{ n.poly.geojson }}{% endautoescape %},
+	     "properties": {}
+	  },
+	  {% endfor %}
+	     ]
+	  };
+	  
+
            var geojson_format = new OpenLayers.Format.GeoJSON();
            var vector_layer = new OpenLayers.Layer.Vector(); 
            map.addLayer(vector_layer);
@@ -117,8 +121,13 @@
                 <input type="radio" name="type" value="polygon" id="polygonToggle" onclick="toggleControl(this);" /> 
                 <label for="polygonToggle">draw polygon</label> 
             </li> 
-        </ul> 
- 
+        </ul>
+<h2>Our Neighborhoods</h2> 
+{% for n in all_n %}
+<ul>
+  <li><a href="#" id="{{ n.id }}">{{ n.name }}</a></li>
+</ul>
+{% endfor %}
       
     </body> 
 </html> 
