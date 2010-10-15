@@ -21,6 +21,7 @@ urlpatterns = patterns('',
                        (r'^local/(?P<place_type>.*)$', views.local_search),
                        (r'^diy$', diy_views.index),
                        (r'^diy/create$', diy_views.create),
+                       
                        (r'^quad/(?P<quad>\w+)', views.neighborhoods_by_quad),
                        
                        (r'^place/(?P<place_id>[\w]+)', views.place), 

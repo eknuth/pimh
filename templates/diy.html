@@ -38,6 +38,49 @@
  
                 map.addLayers([gmap, polygonLayer]);
 
+	    var vectors = new OpenLayers.Layer.Vector("vector");
+            map.addLayers([vectors]);
+
+	    {% for n in all_n %}
+	    var feature = new OpenLayers.Feature.Vector(
+            OpenLayers.Geometry.fromWKT(
+	          "{{ n.poly.wkt }}"
+                )
+            );
+	    feature.attributes = {"name": "{{ n.name }}" };
+	    vectors.addFeatures([feature]);
+	    {% endfor %}
+
+            var report = function(e) {
+                OpenLayers.Console.log(e.type, e.feature.id);
+            };
+
+	    var display = function(e) {
+	          $("#results").html(e.feature.attributes.name); 
+            };
+            
+            var highlightCtrl = new OpenLayers.Control.SelectFeature(vectors, {
+                hover: true,
+                highlightOnly: true,
+                renderIntent: "temporary",
+                eventListeners: {
+                    beforefeaturehighlighted: report,
+                    featurehighlighted: display,
+                    featureunhighlighted: report
+                }
+            });
+
+            var selectCtrl = new OpenLayers.Control.SelectFeature(vectors,
+                {clickout: true}
+            );
+
+            map.addControl(highlightCtrl);
+            map.addControl(selectCtrl);
+
+            highlightCtrl.activate();
+            selectCtrl.activate();
+
+
  
               drawControls = {
                      polygon: new OpenLayers.Control.DrawFeature(polygonLayer,
@@ -77,9 +120,13 @@
                     }
                 }
             }
+
+	    $(document).ready(function() {
+	          init();
+	    });
         </script> 
     </head> 
-    <body onload="init()"> 
+    <body> 
 	<img src="/static/pimh-logo.png">
  
         <div id="map" class="smallmap"></div> 
@@ -89,7 +136,7 @@
        <INPUT TYPE="button" NAME="button" Value="Click" onClick="save(this.form)">
 
 	</form>
-	<div id="result"></div>
+	<div id="results"></div>
         <ul id="controlToggle">
 	  <a href="void();" value="polygon" onclick="toggleControl(this);">Draw Polygon</a>
             <li> 
