@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"> 
     <head> 
-        <title>Draw Feature Example</title> 
+        <title>Portland is my Homeland</title> 
         
 
         <link rel="stylesheet" href="/static/stylesheets/style.css" type="text/css" /> 
@@ -26,7 +26,7 @@
 
 
 	  
-            var map, drawControls, polygonLayer;
+            var map, drawControls, polygonLayer, vectors, poly_hash = new Array();
             function init(){
                 map = new OpenLayers.Map('map');
  
@@ -38,7 +38,7 @@
  
                 map.addLayers([gmap, polygonLayer]);
 
-	    var vectors = new OpenLayers.Layer.Vector("vector");
+	    vectors = new OpenLayers.Layer.Vector("Our Neighborhoods");
             map.addLayers([vectors]);
 
 	    {% for n in all_n %}
@@ -48,6 +48,7 @@
                 )
             );
 	    feature.attributes = {"name": "{{ n.name }}" };
+	    poly_hash[{{ n.id }}] = feature;
 	    vectors.addFeatures([feature]);
 	    {% endfor %}
 
@@ -56,7 +57,7 @@
             };
 
 	    var display = function(e) {
-	          $("#results").html(e.feature.attributes.name); 
+	            $("#results").html(e.feature.attributes.name); 
             };
             
             var highlightCtrl = new OpenLayers.Control.SelectFeature(vectors, {
@@ -100,6 +101,12 @@
  
             }// end init
 
+	    function jump(id) {
+	    map.panTo(new OpenLayers.LonLat(poly_hash[id].geometry.getCentroid().x,
+	                                  poly_hash[id].geometry.getCentroid().y));
+
+	    };
+
 	    function save(form) {
 	        var neighb_name = form.neighb_name.value;
 	        var neighb_poly = polygonLayer.features[0].geometry.getVertices();
@@ -113,6 +120,12 @@
             function toggleControl(element) {
                 for(key in drawControls) {
                     var control = drawControls[key];
+	            if(element.value == "polygon") {
+                //	    vectors.display(false);
+	           } else {
+	               //  vectors.display(true);
+                    }
+
                     if(element.value == key && element.checked) {
                         control.activate();
                     } else {
@@ -138,7 +151,7 @@
 	</form>
 	<div id="results"></div>
         <ul id="controlToggle">
-	  <a href="void();" value="polygon" onclick="toggleControl(this);">Draw Polygon</a>
+
             <li> 
                 <input type="radio" name="type" value="none" id="noneToggle"
                        onclick="toggleControl(this);" checked="checked" /> 
@@ -152,7 +165,7 @@
 <h2>Our Neighborhoods</h2> 
 {% for n in all_n %}
 <ul>
-  <li><a href="#" id="{{ n.id }}">{{ n.name }}</a></li>
+  <li><a href="#" onclick="jump({{ n.id }});">{{ n.name }}</a></li>
 </ul>
 {% endfor %}
       
