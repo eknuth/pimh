@@ -24,11 +24,7 @@
 
         <script type="text/javascript">
 
-	  $(document).ready(function() {
-	  $("a").click(function() {
-	  alert(this);
-	  });
-	  });
+
 	  
             var map, drawControls, polygonLayer;
             function init(){
@@ -57,23 +53,7 @@
                 document.getElementById('noneToggle').checked = true;
 
 
-	  var featurecollection = { 
-	  "type": "FeatureCollection",
-	        "features": [
-	        {% for n in all_n %}
-	  { "type": "Feature",
-	       "geometry":  {% autoescape off %}{{ n.poly.geojson }}{% endautoescape %},
-	     "properties": {}
-	  },
-	  {% endfor %}
-	     ]
-	  };
-	  
 
-           var geojson_format = new OpenLayers.Format.GeoJSON();
-           var vector_layer = new OpenLayers.Layer.Vector(); 
-           map.addLayer(vector_layer);
-           vector_layer.addFeatures(geojson_format.read(featurecollection));
  
             }// end init
 
