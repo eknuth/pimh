@@ -1,0 +1,46 @@
+BODY {
+font-family:"Helvetica, Arial", Times, serif;
+}
+#wrap {
+    width: 1024px;
+
+}
+
+#header {
+    padding-left: 25px;
+}
+#container {
+  width: 750px;
+  float: right;
+  margin-right: -75px;
+  padding-top: 15px;
+
+}
+#sidebar {
+  padding-left: 50px;
+  float: left;
+
+}
+#sidebar li { 
+    list-style-type:none; 
+      }
+
+#submenu {
+
+    width: 50px;
+    float: left;
+
+}
+#map {
+
+
+    float: right;
+
+
+}
+
+#footer {
+  padding-top: 75px;
+  padding-left: 50px;
+  clear: both; 
+}
