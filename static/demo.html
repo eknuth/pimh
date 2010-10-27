@@ -1,4 +1,15 @@
+<head>
 <LINK REL=StyleSheet HREF="/static/stylesheets/box.css" TYPE="text/css" MEDIA=screen>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/base/jquery.ui.all.css">
+<script>
+  $(function() {
+  $( "#accordion" ).accordion();
+  });
+  </script>
+</head>
+<body>
 <div id="wrap">
 <div id="header"><img src="/static/pimh-logo.png"></div>
 
@@ -19,8 +30,44 @@
 </div>
 
 <div id="container">
-<div id="submenu"></div>
+<div id="submenu">
+<div id="accordion">
+<h3><a href="#">Section 1</a></h3>
+<div>
+<p>
+Stuff
+</p>
+</div>
+<h3><a href="#">Section 2</a></h3>
+<div>
+<p>
+Stuff
+</p>
+</div>
+<h3><a href="#">Section 3</a></h3>
+<div>
+<p>
+Stuff
+</p>
+<ul>
+<li>List item one</li>
+<li>List item two</li>
+<li>List item three</li>
+</ul>
+</div>
+<h3><a href="#">Section 4</a></h3>
+<div>
+<p>
+Stuff
+</p>
+<p>
+Stuff
+</p>
+</div>
+</div>
+</div>
 <div id="map"><img src="/static/mock.png"></div>
 </div>
 <div id="footer">Footer</div>
 </div>
+</body>

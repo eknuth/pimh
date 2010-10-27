@@ -2,7 +2,7 @@ BODY {
 font-family:"Helvetica, Arial", Times, serif;
 }
 #wrap {
-    width: 1024px;
+    width: 100%;
 
 }
 
@@ -10,13 +10,15 @@ font-family:"Helvetica, Arial", Times, serif;
     padding-left: 25px;
 }
 #container {
-  width: 750px;
+
+  width: 75%;
+  height: 75%;
   float: right;
-  margin-right: -75px;
   padding-top: 15px;
 
 }
 #sidebar {
+
   padding-left: 50px;
   float: left;
 
@@ -27,15 +29,18 @@ font-family:"Helvetica, Arial", Times, serif;
 
 #submenu {
 
-    width: 50px;
+    width: 28%;
     float: left;
+
+}
+#accordion {
+  height: 100%;
 
 }
 #map {
 
-
     float: right;
-
+    padding-right: 10%;
 
 }
 
